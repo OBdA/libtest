@@ -1,0 +1,38 @@
+*** POSIX-2008 compatibility
+
+***  BUGS
+	- test: __libtest_msg_err
+--	diag-onliner
+diag "$(diff -U 1 $prefix.expect $tmp)"
+==	diag wrote only one '#' for multiple line diagnostics
+
+
+***  MAIN
+
+==	Documentation
+
+--	In einem Test darf kein 'trap "..." EXIT' verwandt werden!
+	Sonst wird die Funktion __END__ nicht aufgerufen.
+
+
+==	Features
+
+--	handy functions for temp files/directory: __tempfile() __tempdir()
+	# prepare the tests
+	mkdir -p t/tmp
+	tmp=$(mktemp t/tmp/,XXXXX)
+	[ -f "$tmp" ] || exit 255
+
+--	implement done_testing()
+	done_testing( [number of tests run] ) can be called if number of planned
+	tests is unknown at the beginning.
+
+--	implement 'trap ERR' for libtest
+	use 'trap ERR' to catch any errors in test script. should exit the script
+	with exit code 255.
+	check that no libtest function can raise an ERR trap. any libtest function
+	*must* return a true value!
+	POSIX remark: trap do not know 'ERR' trap. Must be simulated via
+	trap '0' (EXIT) and checking return value (make PoC).
+
+#EOF

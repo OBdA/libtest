@@ -1,0 +1,308 @@
+commit a3d47582dd930b40289b601e087210f86a0b473b
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Tue Jun 19 22:00:48 2012 +0200
+
+    libtest: add test for bug #diag-onliner
+
+commit 71611db6c86f0b4f12b9f3f77287f8eb4077e29a
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Tue Jun 12 07:23:30 2012 +0200
+
+    libtool: Option '--help' exists with code 2
+
+commit 1a8ca83b9eb608033d3a742e0f2faef8f0c8b63a
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Tue Jun 5 17:52:07 2012 +0200
+
+    updated option '--help' to show licence information
+    
+    * made permission executable for option '--help'
+
+commit 6580d65218040968096ca1613bda6c4c49d2c2d1
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Tue Jun 5 17:07:24 2012 +0200
+
+    updated copyright
+
+commit e5ac7b895e92b8ae6c711d061ddf68e3a058bf79
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Thu May 24 18:49:30 2012 +0200
+
+    libtest: fixed inline documentation
+
+commit ad69b360fa97dc62ebfc303dc34be1ca62db4d3c
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Wed May 23 18:05:26 2012 +0200
+
+    libtest: removed bash version
+
+commit 7896d004676db9bddf065ecc065ccd3ba914c868
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Wed Jan 4 22:40:33 2012 +0100
+
+    libtest is POSIX-2008 compatible
+    
+    Please source 'libtest.sh' to use test framework
+    Tested compatibilities:
+      - /bin/dash
+      - /bin/bash --posix
+      - /bin/bash
+    
+    Summary of changes:
+      - POSIX usage of 'local' builtin
+      - replace /bin/bash with /bin/sh and fixed '.' arguments
+      - removed 'typeset' which is not supported in POSIX
+      - using libtest.sh in all tests scripts
+      - fixed quotes in test expressions
+      - replace test expression '==' which is not supported in POSIX
+      - POSIX usage of '-a' logical operator in test expressions
+      - fixed missing 'eval' in ok()
+      - fixed quotes using parameters and 'if' structures
+      - is_status(): using randomized variable to protect return value
+      - fixed func_ok() for sh/bash compatibility
+      - fixed many tests
+
+commit ccde26afd70acd9573513d4b8753adf00657692a
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Mon Jan 2 21:21:13 2012 +0100
+
+    fixed #bug-failed-TODO-test
+
+commit 14430ec3a23a90d7249e3f9607e46e764ecd0625
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Mon Jan 2 21:13:13 2012 +0100
+
+    rewrote tests for TODO()
+
+commit 064d613a4fd0340e3db75c680f8aa1fdd9621009
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Mon Nov 28 21:57:53 2011 +0100
+
+    added copyright
+
+commit 9f6180e3551019c78e306680474af84adc76c117
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Tue Nov 29 05:58:12 2011 +0100
+
+    updated READMEs and documentation
+    
+    * added README.libtest
+
+commit 7a4c238a875624389d3ec049b201a03a97bdaf5d
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Tue Nov 22 17:50:27 2011 +0100
+
+    added some source comments
+
+commit c01d007fa044be4df76535524f7880370c3a2f2c
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Tue Nov 22 06:45:19 2011 +0100
+
+    added message test for pass() and fail()
+
+commit bcfe3b74431b7328187ba71d6aac0ca83e92a4dd
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Tue Nov 22 06:04:25 2011 +0100
+
+    rewrote function descriptions
+    
+    * added description for BAIL_OUT()
+
+commit e95915e321a98a438c7c03e2604b2857e84767cc
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Fri Nov 18 18:10:42 2011 +0100
+
+    fixed message for tests without a plan
+
+commit b7528648c9fb306529c5f5481f8626338eb37923
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Tue Nov 22 17:57:42 2011 +0100
+
+    fixed test scripts
+    
+    * fixed messages in tests scripts
+    * fixed cleaning up t/tmp/
+    * fixed test for tests without a plan
+
+commit 4d5224aa6242359a13eed34c41d6d8becffff066
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Tue Nov 15 06:51:58 2011 +0100
+
+    used pass() and fail() in all functions
+
+commit 0d2e75bd2ab38be2940a2e38fac39b9410e30531
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Tue Nov 15 06:44:46 2011 +0100
+
+    addded multiple line support for __libtest_msg()
+
+commit e4b9e71e20ea4a8bdd99dc43f72215a354e71fcc
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Tue Nov 15 06:41:50 2011 +0100
+
+    add source comments
+
+commit aed6b2cb16b152ebb58629d84a3c367a10941b76
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Tue Nov 15 06:24:20 2011 +0100
+
+    fixed quoting bug in func_ok() with test
+
+commit 27bf5083e70c1f973ca610884f6a3b913242f91c
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Tue Nov 15 06:13:36 2011 +0100
+
+    use '$*' rather than '$@' in function parameters
+
+commit b15e2492b2a945963f895ff336acaefbc6c90327
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Sun Nov 13 23:13:22 2011 +0100
+
+    rewrote tests
+    
+    * reordered functions and test files
+    * added tests for internal funcs __ok() and __nok()
+    * rewrote test data for tests
+    * added tests for tests()
+    * added simple comment in t/data/*.t
+    * rewrite tests with new functions
+    * fix some of the messages
+
+commit b6e53d15ba5670c59f343ad491312630c7ef6e76
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Sun Nov 13 22:30:30 2011 +0100
+
+    added comments for used variables
+
+commit ebbe74dc3154ac98b149fb957b3d39d867a99e6b
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Sat Nov 12 23:40:05 2011 +0100
+
+    added functions like_file() and unlike_file() with tests
+
+commit dd83561832823bca0d2bc0618f34a152dfa609bc
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Sat Nov 12 22:50:24 2011 +0100
+
+    added functions like() and unlike() with tests
+
+commit e94a86d0cdabe1af80feaa7185367aadcf2f8d3a
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Sat Nov 12 21:37:56 2011 +0100
+
+    added pass() and fail() with tests
+
+commit 43890b959f1642e456795a8520201a178a4520f0
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Sat Nov 12 00:25:16 2011 +0100
+
+    added func_ok() with tests
+
+commit 706b9aaab9a4e0f7761ddb988e8a9babf9ff22ee
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Fri Nov 11 23:23:44 2011 +0100
+
+    added functions is_status() isnt_status() with test
+
+commit 5a7c2a0ca73d619b2a68315cded3d38891491621
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Fri Nov 11 22:36:10 2011 +0100
+
+    added functions is_num() isnt_num() with test
+
+commit 6697a15ac1a8fd2cdf0d54fa34788e0ed87b25bf
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Tue Nov 8 16:47:23 2011 +0100
+
+    fixed cmp_ok() with __got_expected()
+
+commit 64be1f8513e00183819b432567da4807616cf994
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Tue Nov 8 16:46:31 2011 +0100
+
+    added __got_expected()
+
+commit 4d8d023b05024cb5917ba0057dcfdc29e7b857e8
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Sun Nov 13 00:30:55 2011 +0100
+
+    added is() and isnt() with tests
+
+commit 357c339d98ddfe7b04930e9156cea6ceb4ab1590
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Fri Oct 28 19:39:24 2011 +0200
+
+    added cmp_ok()
+
+commit cb396dbdf3f5ce208ef1e9f1fd6607ebf426e17d
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Fri Oct 28 18:52:12 2011 +0200
+
+    fixed failure message in __nok()
+
+commit cfa2331a7f17cf4555de1339d0c178c0564684a0
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Fri Oct 28 17:39:07 2011 +0200
+
+    added diag() for printing diagnostic messages
+
+commit 6f75d146a364db1baad27df1e940a3735082e23b
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Fri Oct 28 17:17:52 2011 +0200
+
+    failure message via __libtest_msg_err()
+
+commit 3ec4b39383c6208abc859caa54d1543c5dd7e6d1
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Thu Oct 27 07:58:06 2011 +0200
+
+    added BAIL_OUT
+    
+    * added 6 test for BAIL_OUT
+
+commit 88e48c5d2b912ad93d7427fae4fd35ee31733b3c
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Thu Oct 27 07:56:45 2011 +0200
+
+    cleanup libtest.bash
+    
+    * ignore PoC directory ./poc/
+    * added new test scripts in t/data/
+    * changed type of libtest messages to Test::More
+    * added __set_traps()
+    * added variable holding retval of last user command
+    * added function usage
+    * ensure every function returns true value
+    * reordered functions
+    * reordered test scripts
+    * added TODO pragma to some tests
+
+commit 313e0e796edc1da41837fb23694c5a85a2de5e6a
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Tue Oct 4 22:46:29 2011 +0200
+
+    added TODO pragma
+
+commit 921be6ae4969c3cf939639aecf31bdbc836c072c
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Tue Oct 4 22:45:14 2011 +0200
+
+    added func to reset all counters
+
+commit 584e1c125ead16ad2b2319b3dfa661e80d3d0235
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Fri Oct 28 19:32:16 2011 +0200
+
+    fixed bug exit-code-254
+
+commit ac7b7275d59a6b8704ad7e7af3bd47b88c4be093
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Thu Sep 22 15:11:14 2011 +0200
+
+    fixed return value when ok() failed in libtest.bash
+
+commit fbcee207950beaf749b666e30f086725dd173ebc
+Author: Olaf Ohlenmacher <olf@obda.de>
+Date:   Tue Feb 15 18:15:52 2011 +0100
+
+    added libtest.bash like Perl's module Test::Simple

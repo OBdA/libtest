@@ -1,0 +1,152 @@
+NAME
+    libtest.bash
+
+
+SYNOPSIS
+    eval ". libtest.bash" || exit 255
+
+    tests	2
+    func_ok	test_it      'tests()'
+    BAIL_OUT 'function test_it() undefined -- forgot to source?'
+
+    test_it
+    is_status 0           'successfull execution'
+
+
+DESCRIPTION
+    You know about Perl's Test::Harness?
+    This is the shell version. It's compatible with the 'prove'
+    command to easily test whole bunches of test scripts.
+    Try out and have a look.
+
+
+FUNCTIONS
+
+tests( <number> )
+  Plan your tests. This function set the number of planed tests.
+
+  Example:
+    tests 2
+    is_func func      'func ok'
+    ok "$life == 42"  'the answer'
+
+
+pass( <description> )
+fail( <description> )
+  If you just want to pass or fail a test use these functions.
+
+  Example:
+    command
+    if [ complex_expression ]; then
+        pass 'Yeah, command is a runner'
+    else
+        fail 'command did not run like expected'
+    fi
+
+
+func_ok( <function> <description> )
+  Checks if <function> is a shell function and defined.
+
+  Example:
+    func_ok sort_numbers    'function sort_numbers()'
+    
+
+ok( <condition> <description> )
+  Run test with specified condition and mark test with given description.
+  Use BAIL_OUT() or diag() if you want to react on test results.
+
+  Example:
+    ok "$(go_to_bed $time) == 'dreams'"   'have dreams while sleeping'
+    diag "go to sleep at $time"
+
+
+cmp_ok( <got> <op> <expect> <description> )
+  This function allows you to compare two arguments using any binary
+  test(1) operator. Additional to ok() there will be more information
+  of the expected results when a test fails.
+
+  Example:
+    cmp_ok "$retval" '==' 'expected string'  'expected string found'
+
+
+is_status( <expect> <description> )
+isnt_status( <expect> <description> )
+  These functions test the return value of the last executed command
+  and produce their output regarding to the results.
+
+  Example:
+    is_status   '0'  'command exits succesfully'
+    isnt_status '0'  'command failed'
+
+
+is( <got> <expect> <description> )
+isnt( <got> <expect> <description> )
+  Similiar to ok(), is() and isnt() compare two string arguments and produce
+  their output regarding to the results.
+
+  Example:
+    is   "$retval" 'expected'  'expected string found'
+    isnt "$retval" ''          'got some string'
+
+
+is_num( <got> <expect> <description> )
+isnt_num( <got> <expect> <description> )
+  Similiar to is(), is_num() and isnt_num() compare two integer arguments
+  and produce their output regarding to the results.
+
+  Example:
+    is_num   "$?"   '0'  'command exits succesfully'
+    isnt_num "$int" '42' 'got anything other than the answer'
+
+
+like( <got> <regexp> <description> )
+unlike( <got> <regexp> <description> )
+  Similiar to is() and isnt() these functions compare a string against
+  a extended regular expression
+
+  Example:
+    like   "$path" '^/'    'path is absolute'
+    unlike "$path" '^/etc' 'file not in /etc'
+
+
+like_file( <file> <regexp> <description> )
+unlike_file( <file> <regexp> <description> )
+  Similiar to like() and unlike() these functions compare the contents of
+  a file against a extended regular expression.
+
+  Example:
+    like_file   "$file" 'computer'    'file contains computer'
+    unlike_file "$file" 'telephone'   'file contains no telephone'
+
+
+diag( <message> )
+  Shows message for diagnostics if last test failed. Backslash escapes
+  can be used in <message>, see echo(1).
+
+  Example:
+    ok $(go_to_bed $time) '==' "lovly dream"    'sleeping nicly'
+    diag "Going to bed at $time\nHaving bad dreams"
+        
+
+TODO( [description] )
+  When <description> is set all following tests are marked as TODO and
+  cannot fail.
+  Use TODO without <description> to return to productive tests.
+
+  Example:
+    TODO Make file holding real test data
+    like_file t/data/testfile "real test data" 'testfile are correct'
+    TODO
+    ok "$prod -eq 1" 'productive test'
+
+
+BAIL_OUT( <reason> )
+  This function stops further testing if the last test failed, and exit
+  with code 255.
+  Backslash escapes can be used in <reason> like in echo(1).
+
+  Example:
+    func_ok important_function   'important_function() available'
+    BAIL_OUT 'important_function() *must* be available'
+
+
