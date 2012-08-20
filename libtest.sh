@@ -604,14 +604,18 @@ __set_failed ()
 
 __libtest_msg ()
 {
-	echo "# $*" | sed -r 's/\\n/\n# /'
+	echo "$*" \
+	| sed -r 's/\\n/\n/g' \
+	| sed  'i # ' | sed 'N; s/\n//'
 
 	return 0
 }
 
 __libtest_msg_err ()
 {
-	echo "# $*" | sed -r 's/\\n/\n# /' 1>&2
+	echo "$*" \
+	| sed -r 's/\\n/\n/g' \
+	| sed  'i # ' | sed 'N; s/\n//' 1>&2
 
 	return 0
 }
