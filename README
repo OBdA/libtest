@@ -1,9 +1,11 @@
 NAME
-    libtest.bash
+    libtest.sh
 
 
 SYNOPSIS
-    eval ". libtest.bash" || exit 255
+    ./libtest.sh --help
+
+    eval ". ./libtest.sh" || exit 255
 
     tests	2
     func_ok	test_it      'tests()'
@@ -28,7 +30,7 @@ tests( <number> )
   Example:
     tests 2
     is_func func      'func ok'
-    ok "$life == 42"  'the answer'
+    ok "$life -eq 42"  'the answer'
 
 
 pass( <description> )
@@ -56,7 +58,7 @@ ok( <condition> <description> )
   Use BAIL_OUT() or diag() if you want to react on test results.
 
   Example:
-    ok "$(go_to_bed $time) == 'dreams'"   'have dreams while sleeping'
+    ok "$(go_to_bed $time) = 'dreams'"   'have dreams while sleeping'
     diag "go to sleep at $time"
 
 
@@ -66,7 +68,7 @@ cmp_ok( <got> <op> <expect> <description> )
   of the expected results when a test fails.
 
   Example:
-    cmp_ok "$retval" '==' 'expected string'  'expected string found'
+    cmp_ok "$retval" '=' 'expected string'  'expected string found'
 
 
 is_status( <expect> <description> )
@@ -124,7 +126,7 @@ diag( <message> )
   can be used in <message>, see echo(1).
 
   Example:
-    ok $(go_to_bed $time) '==' "lovly dream"    'sleeping nicly'
+    ok $(go_to_bed $time) '=' "lovly dream"    'sleeping nicly'
     diag "Going to bed at $time\nHaving bad dreams"
         
 
