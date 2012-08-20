@@ -1,10 +1,9 @@
-*** POSIX-2008 compatibility
 
-***  BUGS
-	- test: __libtest_msg_err
---	diag-onliner
-diag "$(diff -U 1 $prefix.expect $tmp)"
-==	diag wrote only one '#' for multiple line diagnostics
+==  BUGS
+
+==	Version 1.0
++	review tests for diag() and BAIL()
+	- remove '&&' in t/data/BAIL_OUT.t and t/data/diag.t
 
 
 ***  MAIN
