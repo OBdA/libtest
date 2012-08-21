@@ -8,7 +8,7 @@ SYNOPSIS
     eval ". ./libtest.sh" || exit 255
 
     tests	2
-    func_ok	test_it      'tests()'
+    func_ok	test_it      'function test_it()'
     BAIL_OUT 'function test_it() undefined -- forgot to source?'
 
     test_it
@@ -17,9 +17,22 @@ SYNOPSIS
 
 DESCRIPTION
     You know about Perl's Test::Harness?
-    This is the shell version. It's compatible with the 'prove'
+    This is the shell version. It's output is compatible with the 'prove'
     command to easily test whole bunches of test scripts.
-    Try out and have a look.
+
+    To check libtest.sh itself on your platform with 'prove', run
+
+        prove --exec /bin/sh t/
+
+    If you have not installed Perl's 'prove' command, run
+
+        ls t/*.t | while read i; do
+            echo -n $i
+            /bin/sh $i >/dev/null 2>&1 && echo " ok" || echo " FAILED"
+        done
+
+    This should run all test scripts and report a (very) short summary
+    of the test results.
 
 
 FUNCTIONS
@@ -59,7 +72,7 @@ ok( <condition> <description> )
 
   Example:
     ok "$(go_to_bed $time) = 'dreams'"   'have dreams while sleeping'
-    diag "go to sleep at $time"
+    diag "gone to sleep at $time"
 
 
 cmp_ok( <got> <op> <expect> <description> )
@@ -74,7 +87,7 @@ cmp_ok( <got> <op> <expect> <description> )
 is_status( <expect> <description> )
 isnt_status( <expect> <description> )
   These functions test the return value of the last executed command
-  and produce their output regarding to the results.
+  and produce their output regarding to this value.
 
   Example:
     is_status   '0'  'command exits succesfully'
@@ -151,4 +164,18 @@ BAIL_OUT( <reason> )
     func_ok important_function   'important_function() available'
     BAIL_OUT 'important_function() *must* be available'
 
+
+BUGS
+    Do not use traps on EXIT!
+    libtest.sh use this trap to calculate test results. So, do not use
+    'trap' in your test scripts.
+
+AUTHOR
+    Written by Olaf Ohlenmacher
+
+COPYRIGHT
+    Copyright 2011,2012 Olaf Ohlenmacher.  License GPLv3+: GNU GPL
+    version 3 or later <http://gnu.org/licenses/gpl.html>. This is free
+    software: you are free to change and redistribute it. There is NO
+    WARRANTY, to the extent permitted by law.
 
