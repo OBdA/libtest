@@ -44,9 +44,22 @@
 #..
 #..DESCRIPTION
 #..    You know about Perl's Test::Harness?
-#..    This is the shell version. It's compatible with the 'prove'
+#..    This is the shell version. It's output is compatible with the 'prove'
 #..    command to easily test whole bunches of test scripts.
-#..    Try out and have a look.
+#..
+#..    To check libtest.sh itself on your platform with 'prove', run
+#..
+#..        prove --exec /bin/sh t/
+#..
+#..    If you have not installed Perl's 'prove' command, run
+#..
+#..        ls t/*.t | while read i; do
+#..            echo -n $i
+#..            /bin/sh $i >/dev/null 2>&1 && echo " ok" || echo " FAILED"
+#..        done
+#..
+#..    This should run all test scripts and report a (very) short summary
+#..    of the test results.
 #..
 #..
 
