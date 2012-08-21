@@ -1,20 +1,4 @@
-
-==  BUGS
-
-==	Version 1.0
-+	review tests for diag() and BAIL()
-	- remove '&&' in t/data/BAIL_OUT.t and t/data/diag.t
-
-
-***  MAIN
-
-==	Documentation
-
---	In einem Test darf kein 'trap "..." EXIT' verwandt werden!
-	Sonst wird die Funktion __END__ nicht aufgerufen.
-
-
-==	Features
+==	MAIN
 
 --	handy functions for temp files/directory: __tempfile() __tempdir()
 	# prepare the tests
