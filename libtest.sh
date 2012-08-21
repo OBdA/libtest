@@ -35,7 +35,7 @@
 #..    eval ". ./libtest.sh" || exit 255
 #..
 #..    tests	2
-#..    func_ok	test_it      'tests()'
+#..    func_ok	test_it      'function test_it()'
 #..    BAIL_OUT 'function test_it() undefined -- forgot to source?'
 #..
 #..    test_it
@@ -160,7 +160,7 @@ func_ok ()
 #..
 #..  Example:
 #..    ok "$(go_to_bed $time) = 'dreams'"   'have dreams while sleeping'
-#..    diag "go to sleep at $time"
+#..    diag "gone to sleep at $time"
 #..
 #..
 ok ()
@@ -213,7 +213,7 @@ cmp_ok ()
 #..is_status( <expect> <description> )
 #..isnt_status( <expect> <description> )
 #..  These functions test the return value of the last executed command
-#..  and produce their output regarding to the results.
+#..  and produce their output regarding to this value.
 #..
 #..  Example:
 #..    is_status   '0'  'command exits succesfully'
