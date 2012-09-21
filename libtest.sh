@@ -68,6 +68,7 @@ __libtest_plan=-1		# holds number of planed tests
 __libtest_counter=0		# holds number of run tests
 __libtest_failed=0		# holds number of failed tests
 __libtest_retval=0		# holds retval from last (user) function
+__libtest_lasttest=0	# holds result of last test
 export __libtest_TODO __libtest_plan __libtest_counter __libtest_failed \
 	__libtest_retval
 
@@ -148,7 +149,7 @@ func_ok ()
 		pass  "$desc"
 	else
 		fail "$desc"
-		__libtest_msg_err "  Function '$func' is not defined."
+		__libtest_message "  Function '$func' is not defined."
 	fi
 
 	return 0
@@ -233,7 +234,7 @@ is_status ()
 	if ! __is_number "$1"
 	then
 		__nok "$3"
-		__libtest_msg_err "         got: '$1' as test value\n    expected: <number>"
+		__libtest_message "         got: '$1' as test value\n    expected: <number>"
 		__libtest_retval=1
 		return 0
 	fi
@@ -265,7 +266,7 @@ isnt_status ()
 	if ! __is_number "$1"
 	then
 		__nok "$3"
-		__libtest_msg_err "         got: '$1' as test value\n    expected: <number>"
+		__libtest_message "         got: '$1' as test value\n    expected: <number>"
 		__libtest_retval=1
 		return 0
 	fi
@@ -350,13 +351,13 @@ is_num ()
 	if ! __is_number "$1"
 	then
 		__nok "$3"
-		__libtest_msg_err "         got: '$1' as test value\n    expected: <number>"
+		__libtest_message "         got: '$1' as test value\n    expected: <number>"
 		__libtest_retval=1
 		return 0
 	elif ! __is_number "$2"
 	then
 		__nok "$3"
-		__libtest_msg_err "         got: '$2' as expected value\n    expected: <number>"
+		__libtest_message "         got: '$2' as expected value\n    expected: <number>"
 		__libtest_retval=1
 		return 0
 	fi
@@ -384,13 +385,13 @@ isnt_num ()
 	if ! __is_number "$1"
 	then
 		__nok "$3"
-		__libtest_msg_err "         got: '$1' as test value\n    expected: <number>"
+		__libtest_message "         got: '$1' as test value\n    expected: <number>"
 		__libtest_retval=1
 		return 0
 	elif ! __is_number "$2"
 	then
 		__nok "$3"
-		__libtest_msg_err "         got: '$2' as expected value\n    expected: <number>"
+		__libtest_message "         got: '$2' as expected value\n    expected: <number>"
 		__libtest_retval=1
 		return 0
 	fi
@@ -433,7 +434,7 @@ like ()
 		pass  "$desc"
 	else
 		fail "$desc"
-		__libtest_msg_err "         got: '$got'\n    expected regexp: '$regexp'"
+		__libtest_message "         got: '$got'\n    expected regexp: '$regexp'"
 	fi
 
 	return 0
@@ -452,7 +453,7 @@ unlike ()
 		pass  "$desc"
 	else
 		fail "$desc"
-		__libtest_msg_err "         got: '$got'\n    expected anything not matching: '$regexp'"
+		__libtest_message "         got: '$got'\n    expected anything not matching: '$regexp'"
 	fi
 
 	return 0
@@ -479,7 +480,7 @@ like_file ()
 	if [ ! -r "$file" ]
 	then
 		fail $desc
-		__libtest_msg_err "  File not readable: '$file'"
+		__libtest_message "  File not readable: '$file'"
 		return 0
 	fi
 
@@ -488,7 +489,7 @@ like_file ()
 		pass "$desc"
 	else
 		fail "$desc"
-		__libtest_msg_err "    File: '$file'\n  RegExp: '$regexp'"
+		__libtest_message "    File: '$file'\n  RegExp: '$regexp'"
 	fi
 
 	return 0
@@ -505,7 +506,7 @@ unlike_file ()
 	if [ ! -r "$file" ]
 	then
 		fail $desc
-		__libtest_msg_err "  File not readable: '$file'"
+		__libtest_message "  File not readable: '$file'"
 		return 0
 	fi
 
@@ -514,7 +515,7 @@ unlike_file ()
 		pass "$desc"
 	else
 		fail "$desc"
-		__libtest_msg_err "            File: '$file'\n  matched RegExp: '$regexp'"
+		__libtest_message "            File: '$file'\n  matched RegExp: '$regexp'"
 	fi
 
 	return 0
@@ -535,7 +536,7 @@ diag ()
 
 	what="$*"
 
-	[ $__libtest_retval -ne 0 ] && __libtest_msg_err "$what"
+	[ $__libtest_retval -ne 0 ] && __libtest_message "$what"
 
 	return 0
 }
@@ -616,6 +617,29 @@ __set_failed ()
 	return 0
 }
 
+__libtest_message ()
+{
+	local fd out
+
+	# put all messages to STDOUT when test successfull or when test failed
+	# in a TODO block. Otherwise use STDERR for printing messages.
+	if test "$__libtest_lasttest" -eq 0 -o "$__libtest_TODO" ;then
+		fd=1
+	else
+		fd=2
+	fi
+
+	echo "$*" \
+	| sed -r 's/\\n/\n/g' \
+	| sed  'i # ' | sed 'N; s/\n//' 1>&$fd
+
+#	echo "$*" \
+#	| sed -r 's/\\n/\n/g' \
+#	| sed  'i # ' | sed 'N; s/\n//'
+
+	return 0
+}
+
 __libtest_msg ()
 {
 	echo "$*" \
@@ -640,13 +664,14 @@ __ok ()
 
 	desc=$1
 
+	__libtest_lasttest=0
 	__libtest_counter=$(( $__libtest_counter + 1 ))
 
 	echo -n "ok $__libtest_counter - $desc "
 
 	if [ "$__libtest_TODO" ]
 	then
-		__libtest_msg "TODO $__libtest_TODO"
+		__libtest_message "TODO $__libtest_TODO"
 	else
 		echo
 	fi
@@ -660,20 +685,21 @@ __nok ()
 
 	desc=$1
 
+	__libtest_lasttest=1
 	__libtest_counter=$(( $__libtest_counter + 1 ))
 
 	echo -n "not ok $__libtest_counter - $desc "
 
 	if [ "$__libtest_TODO" ]
 	then
-		__libtest_msg_err "TODO $__libtest_TODO"
-		__libtest_msg_err "  Failed (TODO) test '$desc'"
-		__libtest_msg_err "  in $0"
+		__libtest_message "TODO $__libtest_TODO"
+		__libtest_message "  Failed (TODO) test '$desc'"
+		__libtest_message "  in $0"
 	else
 		__libtest_failed=$(( $__libtest_failed + 1 ))
 		echo
-		__libtest_msg_err "  Failed test '$desc'"
-		__libtest_msg_err "  at $0"
+		__libtest_message "  Failed test '$desc'"
+		__libtest_message "  at $0"
 	fi
 
 	return 0
@@ -688,9 +714,9 @@ __got_expected ()
 
 	if [ "$expected" = '__anything_else__' ]
 	then
-		__libtest_msg_err "         got: '$got'\n    expected: anything else"
+		__libtest_message "         got: '$got'\n    expected: anything else"
 	else
-		__libtest_msg_err "         got: '$got'\n    expected: '$expected'"
+		__libtest_message "         got: '$got'\n    expected: '$expected'"
 	fi
 
 	return 0
