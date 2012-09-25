@@ -1,3 +1,12 @@
+==	BUGS
++	__END__(): messages for plan: stdout/stderr?
+-	STDERR: # Looks like you planned 2 tests but ran 4.
+-	STDERR: # Looks like you failed 1 tests of 4 run.
+
++	write 'at <file>' instead of 'in <file>'
++	cleanup __libtest_msg*()
+
+
 ==	MAIN
 
 --	handy functions for temp files/directory: __tempfile() __tempdir()
