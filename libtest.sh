@@ -67,10 +67,9 @@ __libtest_TODO=			# holds TODO message
 __libtest_plan=-1		# holds number of planed tests
 __libtest_counter=0		# holds number of run tests
 __libtest_failed=0		# holds number of failed tests
-__libtest_retval=0		# holds retval from last (user) function
 __libtest_lasttest=0	# holds result of last test
 export __libtest_TODO __libtest_plan __libtest_counter __libtest_failed \
-	__libtest_retval
+	__libtest_lasttest
 
 #..FUNCTIONS
 #..
@@ -87,7 +86,6 @@ tests ()
 {
 	__libtest_plan=$1
 	echo 1..$__libtest_plan
-	__libtest_retval=0
 
 	return 0
 }
@@ -112,7 +110,6 @@ pass ()
 	desc="$*"
 
 	__ok  "$desc"
-	__libtest_retval=0
 
 	return 0
 }
@@ -124,7 +121,6 @@ fail ()
 	desc="$*"
 
 	__nok "$desc"
-	__libtest_retval=1
 
 	return 0
 }
@@ -146,9 +142,9 @@ func_ok ()
 	type "$func" | egrep -q "$func is a( shell)? function"
 	if [ "$?" -eq 0 ]
 	then
-		pass  "$desc"
+		__ok  "$desc"
 	else
-		fail "$desc"
+		__nok "$desc"
 		__libtest_message "  Function '$func' is not defined."
 	fi
 
@@ -173,9 +169,9 @@ ok ()
 
 	#if eval '[' "$cond" ']'		# Do not escape the quotes!
 	if eval test $cond; then
-		pass  "$desc"
+		__ok  "$desc"
 	else
-		fail "$desc"
+		__nok "$desc"
 	fi
 
 	return 0
@@ -201,10 +197,9 @@ cmp_ok ()
 
 	if eval '[' \"$got\" "$op" \"$expected\" ']'
 	then
-		pass  "$desc"
-		__libtest_retval=0
+		__ok  "$desc"
 	else
-		fail "$desc"
+		__nok "$desc"
 		__got_expected "$got" "$expected"
 	fi
 
@@ -235,7 +230,6 @@ is_status ()
 	then
 		__nok "$3"
 		__libtest_message "         got: '$1' as test value\n    expected: <number>"
-		__libtest_retval=1
 		return 0
 	fi
 
@@ -244,9 +238,9 @@ is_status ()
 
 	if eval '[' \"$got\" '-eq' \"$expected\" ']'
 	then
-		pass  "$desc"
+		__ok  "$desc"
 	else
-		fail "$desc"
+		__nok "$desc"
 		__got_expected "$got" "$expected"
 	fi
 
@@ -267,7 +261,6 @@ isnt_status ()
 	then
 		__nok "$3"
 		__libtest_message "         got: '$1' as test value\n    expected: <number>"
-		__libtest_retval=1
 		return 0
 	fi
 
@@ -276,9 +269,9 @@ isnt_status ()
 
 	if eval '[' \"$got\" '-ne' \"$expected\" ']'
 	then
-		pass  "$desc"
+		__ok  "$desc"
 	else
-		fail "$desc"
+		__nok "$desc"
 		__got_expected "$got" __anything_else__
 	fi
 
@@ -305,9 +298,9 @@ is ()
 
 	if eval '[' \"$got\" '=' \"$expected\" ']'
 	then
-		pass  "$desc"
+		__ok  "$desc"
 	else
-		fail "$desc"
+		__nok "$desc"
 		__got_expected "$got" "$expected"
 	fi
 
@@ -324,9 +317,9 @@ isnt ()
 
 	if eval '[' \"$got\" '!=' \"$expected\" ']'
 	then
-		pass  "$desc"
+		__ok  "$desc"
 	else
-		fail "$desc"
+		__nok "$desc"
 		__got_expected "$got" __anything_else__
 	fi
 
@@ -352,13 +345,11 @@ is_num ()
 	then
 		__nok "$3"
 		__libtest_message "         got: '$1' as test value\n    expected: <number>"
-		__libtest_retval=1
 		return 0
 	elif ! __is_number "$2"
 	then
 		__nok "$3"
 		__libtest_message "         got: '$2' as expected value\n    expected: <number>"
-		__libtest_retval=1
 		return 0
 	fi
 
@@ -368,9 +359,9 @@ is_num ()
 
 	if eval '[' \"$got\" '-eq' \"$expected\" ']'
 	then
-		pass  "$desc"
+		__ok  "$desc"
 	else
-		fail "$desc"
+		__nok "$desc"
 		__got_expected "$got" "$expected"
 	fi
 
@@ -386,13 +377,11 @@ isnt_num ()
 	then
 		__nok "$3"
 		__libtest_message "         got: '$1' as test value\n    expected: <number>"
-		__libtest_retval=1
 		return 0
 	elif ! __is_number "$2"
 	then
 		__nok "$3"
 		__libtest_message "         got: '$2' as expected value\n    expected: <number>"
-		__libtest_retval=1
 		return 0
 	fi
 
@@ -402,9 +391,9 @@ isnt_num ()
 
 	if eval '[' \"$got\" '-ne' \"$expected\" ']'
 	then
-		pass  "$desc"
+		__ok  "$desc"
 	else
-		fail "$desc"
+		__nok "$desc"
 		__got_expected "$got" __anything_else__
 	fi
 
@@ -431,9 +420,9 @@ like ()
 
 	if echo "$got" | egrep -q "$regexp"
 	then
-		pass  "$desc"
+		__ok  "$desc"
 	else
-		fail "$desc"
+		__nok "$desc"
 		__libtest_message "         got: '$got'\n    expected regexp: '$regexp'"
 	fi
 
@@ -450,9 +439,9 @@ unlike ()
 
 	if ! echo "$got" | egrep -q "$regexp"
 	then
-		pass  "$desc"
+		__ok  "$desc"
 	else
-		fail "$desc"
+		__nok "$desc"
 		__libtest_message "         got: '$got'\n    expected anything not matching: '$regexp'"
 	fi
 
@@ -479,16 +468,16 @@ like_file ()
 
 	if [ ! -r "$file" ]
 	then
-		fail $desc
+		__nok "$desc"
 		__libtest_message "  File not readable: '$file'"
 		return 0
 	fi
 
 	if egrep -q "$regexp" "$file"
 	then
-		pass "$desc"
+		__ok "$desc"
 	else
-		fail "$desc"
+		__nok "$desc"
 		__libtest_message "    File: '$file'\n  RegExp: '$regexp'"
 	fi
 
@@ -505,16 +494,16 @@ unlike_file ()
 
 	if [ ! -r "$file" ]
 	then
-		fail $desc
+		__nok "$desc"
 		__libtest_message "  File not readable: '$file'"
 		return 0
 	fi
 
 	if ! egrep -q "$regexp" "$file"
 	then
-		pass "$desc"
+		__ok "$desc"
 	else
-		fail "$desc"
+		__nok "$desc"
 		__libtest_message "            File: '$file'\n  matched RegExp: '$regexp'"
 	fi
 
@@ -536,7 +525,7 @@ diag ()
 
 	what="$*"
 
-	[ $__libtest_retval -ne 0 ] && __libtest_message "$what"
+	[ $__libtest_lasttest -ne 0 ] && __libtest_message "$what"
 
 	return 0
 }
@@ -556,7 +545,6 @@ diag ()
 TODO ()
 {
 	__libtest_TODO="$*"
-	__libtest_retval=0
 
 	return 0
 }
@@ -577,7 +565,7 @@ BAIL_OUT ()
 
 	why="$*"
 
-	if [ "$__libtest_retval" -eq 0 ]
+	if [ "$__libtest_lasttest" -eq 0 ]
 	then
 		return 0
 	fi
@@ -633,28 +621,6 @@ __libtest_message ()
 	| sed -r 's/\\n/\n/g' \
 	| sed  'i # ' | sed 'N; s/\n//' 1>&$fd
 
-#	echo "$*" \
-#	| sed -r 's/\\n/\n/g' \
-#	| sed  'i # ' | sed 'N; s/\n//'
-
-	return 0
-}
-
-__libtest_msg ()
-{
-	echo "$*" \
-	| sed -r 's/\\n/\n/g' \
-	| sed  'i # ' | sed 'N; s/\n//'
-
-	return 0
-}
-
-__libtest_msg_err ()
-{
-	echo "$*" \
-	| sed -r 's/\\n/\n/g' \
-	| sed  'i # ' | sed 'N; s/\n//' 1>&2
-
 	return 0
 }
 
@@ -694,7 +660,7 @@ __nok ()
 	then
 		__libtest_message "TODO $__libtest_TODO"
 		__libtest_message "  Failed (TODO) test '$desc'"
-		__libtest_message "  in $0"
+		__libtest_message "  at $0"
 	else
 		__libtest_failed=$(( $__libtest_failed + 1 ))
 		echo

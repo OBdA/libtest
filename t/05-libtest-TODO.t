@@ -15,7 +15,7 @@ tmp=$(mktemp t/tmp/,nok.XXXXX)
 
 ## run the tests
 
-tests 4
+tests 5
 
 ( t/data/TODO.t ) > $tmp 2>&1
 is_status	1		'TODO.t has only one really failed test'
@@ -29,6 +29,14 @@ like_file	$tmp	"^not ok.*failed test # TODO produce failed output" \
 
 like_file	$tmp	"^# +Failed \(TODO\) test 'failed test'" \
 					'  Failed description'
+
+# check for correct file information, aka:
+#   Failed (TODO) test 'failed test'
+#   in t/data/TODO.t
+cat $tmp \
+| grep -E -A 1 		"^# +Failed \(TODO\) test 'failed test'" \
+| grep -q 'at t/data/TODO\.t'
+is_status	0		'  Failed description with file info'
 
 
 rm -f $tmp
