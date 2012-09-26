@@ -22,8 +22,8 @@ BAIL_OUT "isnt_num() not defined"
 is_status	6							'test script return value'
 
 ok "-s $tmpd/out -a -s $tmpd/err"		'  output'
-is_num $(cat $tmpd/out | wc -l)	13		'  count stdout'
-is_num $(cat $tmpd/err | wc -l)	24		'  count stderr'
+is_num $(cat $tmpd/out | wc -l)	12		'  count stdout'
+is_num $(cat $tmpd/err | wc -l)	25		'  count stderr'
 
 
 like_file	$tmpd/err	"got: 'no' as expected value" \
@@ -32,7 +32,7 @@ like_file	$tmpd/err	"got: 'no' as expected value" \
 like_file	$tmpd/err	"got: 'yes' as test value" \
 	"'yes' isn't a number"
 
-like_file	$tmpd/out	"# Looks like you failed 6 tests of 11 run." \
+like_file	$tmpd/err	"# Looks like you failed 6 tests of 11 run." \
 	"test summary"
 
 

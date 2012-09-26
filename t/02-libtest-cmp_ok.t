@@ -16,7 +16,7 @@ is_status	4						'test script'
 
 ok "-s $tmpd/out -a -s $tmpd/err"	'Output'
 
-like_file $tmpd/out	"Looks like you failed 4 tests of 8 run\." \
+like_file $tmpd/err	"Looks like you failed 4 tests of 8 run\." \
 	'test summary'
 
 

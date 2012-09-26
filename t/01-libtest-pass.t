@@ -22,13 +22,13 @@ is_status	1						'test script'
 
 ok "-s $tmpd/out -a -s $tmpd/err"	'Output'
 
-is_num $(cat $tmpd/out | wc -l)	6	'  count stdout'
-is_num $(cat $tmpd/err | wc -l)	2	'  count stderr'
+is_num $(cat $tmpd/out | wc -l)	5	'  count stdout'
+is_num $(cat $tmpd/err | wc -l)	3	'  count stderr'
 
 like_file $tmpd/out "test has passed"	'pass() message'
 like_file $tmpd/out "test has failed"	'fail() message'
 
-like_file $tmpd/out	"# Looks like you failed 1 tests of 4 run\." \
+like_file $tmpd/err	"# Looks like you failed 1 tests of 4 run\." \
 	"test summary"
 
 

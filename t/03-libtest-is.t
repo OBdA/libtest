@@ -22,8 +22,8 @@ is_status	5					'test script'
 
 ok "-s $tmpd/out -a -s $tmpd/err"	'Output'
 
-is_num $(cat $tmpd/out | wc -l)	14	'  count stdout'
-is_num $(cat $tmpd/err | wc -l)	20	'  count stderr'
+is_num $(cat $tmpd/out | wc -l)	13	'  count stdout'
+is_num $(cat $tmpd/err | wc -l)	21	'  count stderr'
 
 like_file $tmpd/out	'not ok 4 -   got NULL expect not NULL' \
 	'got NULL expect no NULL'

@@ -22,8 +22,8 @@ is_status	4						'test script'
 
 ok "-s $tmpd/out -a -s $tmpd/err"	'Output'
 
-is_num $(cat $tmpd/out | wc -l)	12	'  count stdout'
-is_num $(cat $tmpd/err | wc -l)	14	'  count stderr'
+is_num $(cat $tmpd/out | wc -l)	11	'  count stdout'
+is_num $(cat $tmpd/err | wc -l)	15	'  count stderr'
 
 grep -q "File not readable: 't/data/nonexistent'"	$tmpd/err
 is_status	0	'message: file not readable'

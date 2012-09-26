@@ -22,8 +22,8 @@ is_status	2							'test script'
 
 ok "-s $tmpd/out -a -s $tmpd/err"		'Output'
 
-is_num $(cat $tmpd/out | wc -l)	12	'  count stdout'
-is_num $(cat $tmpd/err | wc -l)	8	'  count stderr'
+is_num $(cat $tmpd/out | wc -l)	11	'  count stdout'
+is_num $(cat $tmpd/err | wc -l)	9	'  count stderr'
 
 like_file	$tmpd/err	"expected regexp: 'nutella'" \
 	'expected regular expression'

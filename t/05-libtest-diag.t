@@ -19,8 +19,8 @@ is_status	1					'test script'
 
 ok "-s $tmpd/out -a -s $tmpd/err"	'  output'
 
-is_num $(cat $tmpd/out|wc -l)	4			'  lines of STDOUT'
-is_num $(cat $tmpd/err|wc -l)	3			'  lines of STDERR'
+is_num $(cat $tmpd/out|wc -l)	3			'  lines of STDOUT'
+is_num $(cat $tmpd/err|wc -l)	4			'  lines of STDERR'
 is_num $(cat $tmpd/*|grep '^#'|wc -l)	4	'  lines of messages'
 
 like_file	$tmpd/err	'Check wheter 1 -eq 0!' \

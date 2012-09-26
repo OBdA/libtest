@@ -749,20 +749,20 @@ __END__ ()
 	# no test plan given
 	if [ "$__libtest_plan" -lt 0 ]
 	then
-		__libtest_msg_err Tests were run but no plan was declared.
+		echo \# Tests were run but no plan was declared. 1>&2
 	else
 		if [ "$__libtest_plan" -ne "$__libtest_counter" ]
 		then
-			__libtest_msg Looks like you planned $__libtest_plan tests \
-				but ran $__libtest_counter.
+			echo \# Looks like you planned $__libtest_plan tests \
+				but ran $__libtest_counter. 1>&2
 		fi
 	fi
 
 	# some tests failed
 	if [ "$__libtest_failed" -gt 0 ]
 	then
-		__libtest_msg Looks like you failed $__libtest_failed tests \
-			of $__libtest_counter run.
+		echo \# Looks like you failed $__libtest_failed tests \
+			of $__libtest_counter run. 1>&2
 	fi
 
 	# exit code equals number of failed tests, code 255 is reserved for

@@ -23,10 +23,10 @@ is_status	2			'Test script'
 
 ok "-s $tmpd/out -a -s $tmpd/err"	'Output'
 
-is_num $(cat $tmpd/out | wc -l)	7	'  count stdout'
-is_num $(cat $tmpd/err | wc -l)	6	'  count stderr'
+is_num $(cat $tmpd/out | wc -l)	6	'  count stdout'
+is_num $(cat $tmpd/err | wc -l)	7	'  count stderr'
 
-like_file	$tmpd/out	"# Looks like you failed 2 tests of 5 run\." \
+like_file	$tmpd/err	"# Looks like you failed 2 tests of 5 run\." \
 	"test summary"
 
 

@@ -22,10 +22,10 @@ cmp_ok "$?" '-eq' 6					'test script'
 
 ok "-s $tmpd/out -a -s $tmpd/err"	'  Output'
 
-cmp_ok $(cat $tmpd/out | wc -l) -eq 14	'  count stdout'
-cmp_ok $(cat $tmpd/err | wc -l) -eq 24	'  count stderr'
+cmp_ok $(cat $tmpd/out | wc -l) -eq 13	'  count stdout'
+cmp_ok $(cat $tmpd/err | wc -l) -eq 25	'  count stderr'
 
-grep -q "# Looks like you failed 6 tests of 12 run\."	$tmpd/out
+grep -q "# Looks like you failed 6 tests of 12 run\."	$tmpd/err
 ok "$? -eq 0"		"test summary"
 
 
