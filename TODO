@@ -1,30 +1,15 @@
-==	BUGS
-+	__END__(): messages for plan: stdout/stderr?
--	STDERR: # Looks like you planned 2 tests but ran 4.
--	STDERR: # Looks like you failed 1 tests of 4 run.
-
-+	write 'at <file>' instead of 'in <file>'
-+	cleanup __libtest_msg*()
-
-
 ==	MAIN
-
++	harden against shell options -Cefu
+--	TODO message for unexpectly succeeded tests
 --	handy functions for temp files/directory: __tempfile() __tempdir()
 	# prepare the tests
 	mkdir -p t/tmp
 	tmp=$(mktemp t/tmp/,XXXXX)
 	[ -f "$tmp" ] || exit 255
-
 --	implement done_testing()
 	done_testing( [number of tests run] ) can be called if number of planned
 	tests is unknown at the beginning.
-
---	implement 'trap ERR' for libtest
-	use 'trap ERR' to catch any errors in test script. should exit the script
-	with exit code 255.
-	check that no libtest function can raise an ERR trap. any libtest function
-	*must* return a true value!
-	POSIX remark: trap do not know 'ERR' trap. Must be simulated via
-	trap '0' (EXIT) and checking return value (make PoC).
+	Message:
+	# Tests were run but no plan was declared and done_testing() was not seen.
 
 #EOF
