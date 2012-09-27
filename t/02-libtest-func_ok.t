@@ -11,15 +11,15 @@ tmpd=$(mktemp -d t/tmp/,XXXXX)
 
 tests 7
 
-type func_ok | egrep -q 'func_ok is a( shell)? function'
-ok "$? -eq 0"						'func_ok()'
+err=$(type func_ok | egrep -q 'func_ok is a( shell)? function' || echo $?)
+is_num	${err:=0}	0	'func_ok()'
 BAIL_OUT "func_ok() not defined"
 
 func_ok func_ok			'func_ok defined'
 
 
-( t/data/func_ok.t )	> $tmpd/out 2> $tmpd/err
-is_status	2			'Test script'
+err=$( t/data/func_ok.t > $tmpd/out 2> $tmpd/err || echo $?)
+is_num	${err:=0}	2	'Test script'
 
 ok "-s $tmpd/out -a -s $tmpd/err"	'Output'
 

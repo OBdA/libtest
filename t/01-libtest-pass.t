@@ -17,8 +17,8 @@ BAIL_OUT "pass() not defined"
 func_ok fail    'fail()'
 BAIL_OUT "fail() not defined"
 
-( t/data/pass.t )	> $tmpd/out 2> $tmpd/err
-is_status	1						'test script'
+err=$( t/data/pass.t > $tmpd/out 2> $tmpd/err || echo $?)
+is_num	${err:=0}	1	'test script'
 
 ok "-s $tmpd/out -a -s $tmpd/err"	'Output'
 

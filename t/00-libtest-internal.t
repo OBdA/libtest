@@ -16,18 +16,14 @@ BAIL_OUT "__ok() not defined"
 func_ok	__nok						'__nok()'
 BAIL_OUT "__nok() not defined"
 
-(
-	eval ". ./libtest.sh" || exit 255
-	__ok passed
-	__nok failed
-) >$tmpd/out 2>&1
-is_status 1				'dummy test'
+err=$( t/data/00-ok-nok.sh >$tmpd/out 2>&1 || echo $? )
+is_num	${err:=0}	1	'dummy test'
 
 like_file $tmpd/out	'ok 1 - passed'		'  message for __ok()'
 like_file $tmpd/out	'not ok 2 - failed'	'  message for __nok()'
 
 
-rm -rf $tmpd
+test $DEBUG || rm -rf $tmpd
 exit 0
 
 #EOF

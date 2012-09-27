@@ -16,8 +16,8 @@ tmpd=$(mktemp -d t/tmp/,nok.XXXXX)	|| exit 254
 
 tests 6
 
-( t/data/00-messages.t ) >$tmpd/out 2>$tmpd/err
-is_status	1			'one test really failed'
+err=$( t/data/00-messages.t >$tmpd/out 2>$tmpd/err || echo $?)
+is_num	${err:=0}	1	'one test really failed'
 
 ok "-s $tmpd/out"		'there is STDOUT output'
 ok "-s $tmpd/err"		'there is STDERR output'
@@ -33,7 +33,7 @@ TODO
 
 
 TODO	check TODO messages via prove
-( prove -e /bin/sh t/data/00-messages.t ) >$tmpd/p.out 2>$tmpd/p.err
+err=$(prove -e /bin/sh t/data/00-messages.t >$tmpd/p.out 2>$tmpd/p.err||echo $?)
 like_file	$tmpd/p.out	'1 TODO test unexpectedly succeeded' \
 						'one todo test unexpectedly succeeded'
 TODO

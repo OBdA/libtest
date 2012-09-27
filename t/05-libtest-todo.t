@@ -20,8 +20,8 @@ tests 7
 # run without LIBTEST_NO_TODO
 unset LIBTEST_NO_TODO
 
-( t/data/05-todo.t ) > $tmp 2>&1
-is_status	1		'05-todo.t has only one really failed test'
+err=$( t/data/05-todo.t > $tmp 2>&1 || echo $?)
+is_num ${err:=0} 1	'05-todo.t has only one really failed test'
 
 
 like_file	$tmp	"^ok.*todo ok # TODO produce success output" \
@@ -36,10 +36,13 @@ like_file	$tmp	"^# +Failed \(TODO\) test 'todo failed'" \
 # check for correct file information, aka:
 #   Failed (TODO) test 'failed test'
 #   in t/data/05-todo.t
+err=$(
 cat $tmp \
 | grep -E -A 1 		"^# +Failed \(TODO\) test 'todo failed'" \
-| grep -q 'at t/data/05-todo\.t'
-is_status	0		'  Failed description with file info'
+| grep -q 'at t/data/05-todo\.t' \
+|| echo $?
+)
+is_num	${err:=0}	0	'  Failed description with file info'
 
 
 ##
@@ -50,8 +53,8 @@ TODO working
 # check behaviour with LIBTEST_NO_TODO
 LIBTEST_NO_TODO=1; export LIBTEST_NO_TODO
 
-( t/data/05-todo.t ) > $tmp 2>&1
-is_status	2		'without TODO two tests failed'
+err=$( t/data/05-todo.t > $tmp 2>&1 || echo $?)
+is_num	${err:=0}	2	'without TODO two tests failed'
 
 unlike_file	$tmp	'\(TODO\)' \
 					'no TODO in output'

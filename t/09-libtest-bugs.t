@@ -9,7 +9,7 @@ tmp=$(mktemp t/tmp/,XXXXX)
 
 tests 1
 
-( t/data/99-exit-code-254.t ) >/dev/null 2>&1
-is_status	3			'Bug #exit-code-254'
+err=$( t/data/99-exit-code-254.t >/dev/null 2>&1 || echo $?)
+is_num	${err:=0}	3		'Bug #exit-code-254'
 
 #EOF

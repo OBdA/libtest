@@ -11,9 +11,9 @@ tmp=$(mktemp t/tmp/,XXXXX)
 
 tests 5
 
-( t/data/failed.t )	> $tmp 2>&1
+err=$( t/data/failed.t > $tmp 2>&1 || echo $?)
+is_num	${err:=0}	1	'Test has one failed test'
 
-is_status	1	'Test has one failed test'
 BAIL_OUT	'failed simple test'
 
 ok "-s $tmp"		"Output file has content"

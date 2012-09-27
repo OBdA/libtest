@@ -14,8 +14,8 @@ tests 14
 func_ok	diag					'diag()'
 BAIL_OUT	'function diag() undefined'
 
-( t/data/diag.t )	> $tmpd/out 2> $tmpd/err
-is_status	1					'test script'
+err=$( t/data/diag.t > $tmpd/out 2> $tmpd/err || echo $?)
+is_num	${err:=0}	1				'test script'
 
 ok "-s $tmpd/out -a -s $tmpd/err"	'  output'
 
@@ -28,8 +28,8 @@ like_file	$tmpd/err	'Check wheter 1 -eq 0!' \
 
 ## diag() multiline suppport
 
-( t/data/05-diag-multiline.t )	> $tmpd/out 2> $tmpd/err
-is_status	2					'test script'
+err=$( t/data/05-diag-multiline.t > $tmpd/out 2> $tmpd/err || echo $?)
+is_num	${err:=0}	2				'test script'
 
 like_file	$tmpd/err "^# one:"		'begin unquoted multiline'
 like_file	$tmpd/err "^# two:"		'second unquoted multiline'

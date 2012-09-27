@@ -10,8 +10,8 @@ tmp=$(mktemp t/tmp/,XXXXX)
 
 tests 6
 
-( t/data/BAIL_OUT.t )	> $tmp 2>&1
-is_status	255							'test script'
+err=$( t/data/BAIL_OUT.t > $tmp 2>&1 || echo $?)
+is_num	${err:=0}	255					'test script'
 
 ok "-s $tmp"							'  output'
 

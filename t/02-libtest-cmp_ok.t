@@ -11,8 +11,8 @@ tmpd=$(mktemp -d t/tmp/,XXXXX)
 
 tests 15
 
-( t/data/cmp_ok.t )	> $tmpd/out 2> $tmpd/err
-is_status	4						'test script'
+err=$(t/data/cmp_ok.t > $tmpd/out 2> $tmpd/err || echo $?)
+is_num	${err:=0}	4	'test script'
 
 ok "-s $tmpd/out -a -s $tmpd/err"	'Output'
 

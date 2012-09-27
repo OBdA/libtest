@@ -17,16 +17,16 @@ func_ok	isnt_status					'isnt_status()'
 BAIL_OUT "isnt_status() not defined"
 
 
-( t/data/is_status.t )	> $tmpd/out 2> $tmpd/err
-cmp_ok "$?" '-eq' 6					'test script'
+err=$( t/data/is_status.t > $tmpd/out 2> $tmpd/err || echo $?)
+cmp_ok ${err:=0} '-eq' 6			'test script'
 
 ok "-s $tmpd/out -a -s $tmpd/err"	'  Output'
 
 cmp_ok $(cat $tmpd/out | wc -l) -eq 13	'  count stdout'
 cmp_ok $(cat $tmpd/err | wc -l) -eq 25	'  count stderr'
 
-grep -q "# Looks like you failed 6 tests of 12 run\."	$tmpd/err
-ok "$? -eq 0"		"test summary"
+like_file $tmpd/err "# Looks like you failed 6 tests of 12 run\." \
+	"test summary"
 
 
 rm -rf $tmpd

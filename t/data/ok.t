@@ -1,5 +1,8 @@
 . ./libtest.sh || exit 255
 
+# we use 'false' and have to disable option 'errexit'
+set +e
+
 # prepare the tests
 t1 ()
 {

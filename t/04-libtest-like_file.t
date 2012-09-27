@@ -17,19 +17,19 @@ func_ok	unlike_file		'unlike_file()'
 BAIL_OUT "unlike_file() not defined"
 
 
-( t/data/like_file.t )	> $tmpd/out 2> $tmpd/err
-is_status	4						'test script'
+err=$( t/data/like_file.t > $tmpd/out 2> $tmpd/err || echo $?)
+is_num	${err:=0}	4				'test script'
 
 ok "-s $tmpd/out -a -s $tmpd/err"	'Output'
 
 is_num $(cat $tmpd/out | wc -l)	11	'  count stdout'
 is_num $(cat $tmpd/err | wc -l)	15	'  count stderr'
 
-grep -q "File not readable: 't/data/nonexistent'"	$tmpd/err
-is_status	0	'message: file not readable'
+like_file	$tmpd/err	"File not readable: 't/data/nonexistent'" \
+	'message: file not readable'
 
-grep -q "RegExp: 'nutella'" $tmpd/err
-is_status	0	'message: regular expression'
+like_file	$tmpd/err	"RegExp: 'nutella'" \
+	'message: regular expression'
 
 
 rm -rf $tmpd
