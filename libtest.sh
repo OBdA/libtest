@@ -577,6 +577,30 @@ BAIL_OUT ()
 	exit 255
 }
 
+#..tests_failed()
+#..  This function returns number of failed tests on STDOUT. If no test
+#..  failed no output is produced.
+#..
+#..  Example:
+#..    # save file when tests failed
+#..    if $(tests_failed) && rm -f $tmpfile
+#..
+#..
+tests_failed()
+{
+	local retval
+
+	retval=${__libtest_failed}
+	[ "$retval" -gt 254 ] && retval=254
+
+	if test "$retval" -gt 0; then
+		echo $retval
+	else
+		:
+	fi
+
+	return 0
+}
 
 ##
 ##	Internal function
