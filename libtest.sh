@@ -64,12 +64,13 @@
 #..
 
 __libtest_TODO=			# holds TODO message
+__libtest_TODO_flag=	# is TODO block active?
 __libtest_plan=-1		# holds number of planed tests
 __libtest_counter=0		# holds number of run tests
 __libtest_failed=0		# holds number of failed tests
 __libtest_lasttest=0	# holds result of last test
-export __libtest_TODO __libtest_plan __libtest_counter __libtest_failed \
-	__libtest_lasttest
+export __libtest_TODO __libtest_TODO_flag __libtest_plan __libtest_counter \
+	__libtest_failed __libtest_lasttest
 
 #..FUNCTIONS
 #..
@@ -541,10 +542,20 @@ diag ()
 #..    TODO
 #..    ok "$prod -eq 1" 'productive test'
 #..
+#..  Setting the environment LIBTEST_NO_TODO to a non-empty value disables
+#..  the functionality of TODO. This can be used to proof that any TODO's
+#..  are open before publishing a version.
+#..
 #..
 TODO ()
 {
 	__libtest_TODO="$*"
+	
+	if test -z "${LIBTEST_NO_TODO:-}"; then
+		# set flag if TODO is activated
+		__libtest_TODO_flag=
+		test "$__libtest_TODO" && __libtest_TODO_flag=true
+	fi
 
 	return 0
 }
@@ -635,7 +646,7 @@ __libtest_message ()
 
 	# put all messages to STDOUT when test successfull or when test failed
 	# in a TODO block. Otherwise use STDERR for printing messages.
-	if test "$__libtest_lasttest" -eq 0 -o "$__libtest_TODO" ;then
+	if test "$__libtest_lasttest" -eq 0 -o "$__libtest_TODO_flag" ;then
 		fd=1
 	else
 		fd=2
@@ -659,7 +670,7 @@ __ok ()
 
 	echo -n "ok $__libtest_counter - $desc "
 
-	if [ "$__libtest_TODO" ]
+	if [ "$__libtest_TODO_flag" ]
 	then
 		__libtest_message "TODO $__libtest_TODO"
 	else
@@ -680,7 +691,7 @@ __nok ()
 
 	echo -n "not ok $__libtest_counter - $desc "
 
-	if [ "$__libtest_TODO" ]
+	if [ "$__libtest_TODO_flag" ]
 	then
 		__libtest_message "TODO $__libtest_TODO"
 		__libtest_message "  Failed (TODO) test '$desc'"
