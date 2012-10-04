@@ -21,7 +21,7 @@
 #..
 #..
 
-[ 'libtest.sh' = "$(basename $0)" -a '--help' = "$1" ] \
+[ 'libtest.sh' = "$(basename $0)" -a '--help' = "${1:-}" ] \
 	&& exec grep '^#\.\.' "$0" | sed 's/^#..//' && exit 2
 
 
