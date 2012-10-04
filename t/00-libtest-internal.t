@@ -16,7 +16,7 @@ BAIL_OUT "__ok() not defined"
 func_ok	__nok						'__nok()'
 BAIL_OUT "__nok() not defined"
 
-err=$( t/data/00-ok-nok.sh >$tmpd/out 2>&1 || echo $? )
+err=$( t/data/00-ok-nok.sh >| $tmpd/out 2>&1 || echo $? )
 is_num	${err:=0}	1	'dummy test'
 
 like_file $tmpd/out	'ok 1 - passed'		'  message for __ok()'
