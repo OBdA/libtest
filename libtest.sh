@@ -70,8 +70,9 @@ __libtest_plan=-1		# holds number of planed tests
 __libtest_counter=0		# holds number of run tests
 __libtest_failed=0		# holds number of failed tests
 __libtest_lasttest=0	# holds result of last test
+__libtest_called_dt=	# bool: was done_testing() already called?
 export __libtest_TODO __libtest_TODO_flag __libtest_plan __libtest_counter \
-	__libtest_failed __libtest_lasttest
+	__libtest_failed __libtest_lasttest __libtest_called_dt
 
 #..FUNCTIONS
 #..
@@ -89,6 +90,60 @@ tests ()
 	__libtest_plan=$1
 	echo 1..$__libtest_plan
 
+	return 0
+}
+
+#..done_testing( [number_of_tests] )
+#..  If you do not know how many test you will run, you can issue the plan
+#..  after running the test. 'number_of_tests' is the number of tests you
+#..  expected to run, equal to tests(). You can omit this, in this case the
+#..  number of run tests does not matter. They only have to pass.
+#..
+#..  Example:
+#..    . libtest.sh || exit 255
+#..    ok "-r $file"      'file is readable'
+#..    ok "$life -eq 42"  'the ultimate truth'
+#..    done_testing
+#..
+#..
+done_testing ()
+{
+	local plan
+	plan=${1:-}
+
+	if test ${__libtest_called_dt}; then
+		__nok 'done_testing() was already called'
+	fi
+	
+	if ! __is_number "${plan:-0}"; then
+		echo "done_testing: $plan: argument is not a number" 1>&2
+
+		# remove EXIT trap
+		trap - EXIT
+		exit 255
+	fi
+
+	# set future plan
+	plan=${plan:-$__libtest_counter}
+
+	# check the plans differ
+	if test $__libtest_plan -ge 0 ; then
+		if test $plan -ne $__libtest_plan; then
+			# check plan and done_testing differs
+			__nok "planned to run $__libtest_plan but done_testing() expects $plan"
+		fi
+		return 0
+	fi
+
+	# output plan if no tests() was given
+	if test $__libtest_plan -lt 0; then
+		echo 1..$plan
+	fi
+
+	# set __libtest_plan
+	__libtest_plan=$plan
+
+	__libtest_called_dt=1
 	return 0
 }
 
@@ -751,7 +806,8 @@ __END__ ()
 	# no test plan given
 	if [ "$__libtest_plan" -lt 0 ]
 	then
-		echo \# Tests were run but no plan was declared. 1>&2
+		echo \# Tests were run but no plan was declared and done_testing\(\) \
+			was not seen. 1>&2
 	else
 		if [ "$__libtest_plan" -ne "$__libtest_counter" ]
 		then
