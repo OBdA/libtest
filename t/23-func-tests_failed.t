@@ -16,11 +16,11 @@ tmp=$(mktemp t/tmp/,nok.XXXXX)	|| exit 254
 
 tests 4
 
-err=$( t/data/20-zero-of-three.t >| $tmp 2>&1 || echo $?)
+err=$( t/data/23-zero-of-three.t >| $tmp 2>&1 || echo $?)
 is_num	${err:=0}	0					'zero of three failed'
 like_file	$tmp	'^tests_failed:$'	'  output of tests_failed'
 
-err=$( t/data/20-two-of-three.t >| $tmp 2>&1 || echo $?)
+err=$( t/data/23-two-of-three.t >| $tmp 2>&1 || echo $?)
 is_num	${err:=0}	2					'zero of three failed'
 like_file	$tmp	'^tests_failed:2$'	'  output of tests_failed'
 

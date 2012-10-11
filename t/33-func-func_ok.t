@@ -18,7 +18,7 @@ BAIL_OUT "func_ok() not defined"
 func_ok func_ok			'func_ok defined'
 
 
-err=$( t/data/func_ok.t >| $tmpd/out 2>| $tmpd/err || echo $?)
+err=$( t/data/33-func_ok.t >| $tmpd/out 2>| $tmpd/err || echo $?)
 is_num	${err:=0}	2	'Test script'
 
 ok "-s $tmpd/out -a -s $tmpd/err"	'Output'

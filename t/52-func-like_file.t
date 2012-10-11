@@ -17,7 +17,7 @@ func_ok	unlike_file		'unlike_file()'
 BAIL_OUT "unlike_file() not defined"
 
 
-err=$( t/data/like_file.t >| $tmpd/out 2>| $tmpd/err || echo $?)
+err=$( t/data/52-like_file.t >| $tmpd/out 2>| $tmpd/err || echo $?)
 is_num	${err:=0}	4				'test script'
 
 ok "-s $tmpd/out -a -s $tmpd/err"	'Output'

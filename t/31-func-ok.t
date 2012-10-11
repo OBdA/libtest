@@ -13,7 +13,7 @@ tmp=$(mktemp t/tmp/,XXXXX)
 
 tests 3
 
-( ./t/data/ok.t ) >| $tmp 2>&1
+( ./t/data/31-ok.t ) >| $tmp 2>&1
 is_status	0	'Tests are all successfull'
 
 is_num $(grep '^#' $tmp|wc -l)		0   'No messages in output'
