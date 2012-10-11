@@ -1,12 +1,11 @@
 ==	MAIN
---	renumber all tests!
 
---	check for ( . ./libtest.sh)
-	- should give NO output
-	- should return 0
+--	doc: no 'errexit' in tests (function is_status fails)
+
 --	TODO message for unexpectly succeeded tests
 --	handy wrapper function libtest_tmpfile() for mktemp(), which set variable
 	LIBTEST_TMPFILE and saves file name to remove all of them at the end
 	of the test script via __END__()
+--	check tool usage for POSIX-compatibility
 
 #EOF
