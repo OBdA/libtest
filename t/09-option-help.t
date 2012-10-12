@@ -1,0 +1,39 @@
+#! /bin/sh
+
+# prepare the tests
+mkdir -p t/tmp
+tmpd=$(mktemp -d t/tmp/,XXXXX)
+[ -d "$tmpd" ] || exit 255
+
+
+. ./libtest.sh || exit 255
+
+ok "-x ./libtest.sh"	"libtest.sh is executable"
+
+err=$( ./libtest.sh --help >| $tmpd/out 2>| $tmpd/err || echo $? )
+is_num	${err:-0}	0	"  'libtest.sh --help' exists successfully"
+
+ok "-e $tmpd/err -a ! -s $tmpd/err"	"  no output on STDERR"
+diag "STDERR was: $(cat $tmpd/err)"
+
+ok "-s $tmpd/out"		"  there is output on STDOUT"
+diag "$(ls -l $tmpd/out)"
+
+## check some contents of the inline documentation
+
+like_file $tmpd/out 'Copyright .* Olaf Ohlenmacher.*License GPL' \
+	'  check copyright and license'
+
+like_file $tmpd/out '^SYNOPSIS$' \
+	'  SYNOPSIS section...found'
+
+like_file $tmpd/out '^BUGS$' \
+	'  BUGS section...good!'
+
+done_testing
+
+
+test ${DEBUG:-} || rm -rf $tmpd
+exit 0
+
+#EOF
