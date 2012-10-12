@@ -1,0 +1,13 @@
+==	Categories for Tests
+00-09	Internal tests
+10-19	Planing Tests
+20-29	Simple pass/fail
+30-39	Compare functions
+40-49	'is' and 'isnt' functions
+50-59	'like' and 'unlike' functions
+60-69	Diagnostic and BAIL_OUT!
+70-79	Functions to handle tests, like TODO()
+80-89	Test for features not handled by other category.
+90-99	Tests for identified bugs.
+
+#EOF
