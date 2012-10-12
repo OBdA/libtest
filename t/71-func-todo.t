@@ -17,10 +17,12 @@ tmp=$(mktemp t/tmp/,nok.XXXXX)
 
 tests 7
 
-# run without LIBTEST_NO_TODO
-unset LIBTEST_NO_TODO
 
-err=$( t/data/71-todo.t >| $tmp 2>&1 || echo $?)
+err=$( 
+	# run without LIBTEST_NO_TODO
+	unset LIBTEST_NO_TODO
+	t/data/71-todo.t >| $tmp 2>&1 || echo $?
+)
 is_num ${err:=0} 1	'05-todo.t has only one really failed test'
 
 
@@ -49,16 +51,16 @@ is_num	${err:=0}	0	'  Failed description with file info'
 ##	check TODO_flag
 ##
 
-TODO working
-# check behaviour with LIBTEST_NO_TODO
-LIBTEST_NO_TODO=1; export LIBTEST_NO_TODO
-
-err=$( t/data/71-todo.t >| $tmp 2>&1 || echo $?)
+err=$(
+	# check behaviour with LIBTEST_NO_TODO
+	LIBTEST_NO_TODO=1; export LIBTEST_NO_TODO
+	t/data/71-todo.t >| $tmp 2>&1 || echo $?
+)
 is_num	${err:=0}	2	'without TODO two tests failed'
 
 unlike_file	$tmp	'\(TODO\)' \
 					'no TODO in output'
-TODO
+
 
 rm -f $tmp
 

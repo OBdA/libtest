@@ -24,6 +24,7 @@ is_num	$(cat $tmpd/err|wc -l)	0		'no output on stderr'
 prove		-e /bin/sh t/data/72-format-todo.t >| $tmpd/prove.out 2>&1
 is_status	0		'proved returns 0'
 like_file	$tmpd/prove.out	'Result: PASS'	'test passed (via prove)'
+diag "Output was:\n$(cat $tmpd/prove.out)"
 
 ${DEBUG:-} || rm -rf $tmpd
 #EOF
