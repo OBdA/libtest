@@ -804,15 +804,17 @@ __END__ ()
 	local retval
 
 	# no test plan given
-	if [ "$__libtest_plan" -lt 0 ]
-	then
-		echo \# Tests were run but no plan was declared and done_testing\(\) \
-			was not seen. 1>&2
-	else
-		if [ "$__libtest_plan" -ne "$__libtest_counter" ]
+	if test "$__libtest_counter" -gt 0; then
+		if [ "$__libtest_plan" -lt 0 ]
 		then
-			echo \# Looks like you planned $__libtest_plan tests \
-				but ran $__libtest_counter. 1>&2
+			echo \# Tests were run but no plan was declared and done_testing\(\) \
+				was not seen. 1>&2
+		else
+			if [ "$__libtest_plan" -ne "$__libtest_counter" ]
+			then
+				echo \# Looks like you planned $__libtest_plan tests \
+					but ran $__libtest_counter. 1>&2
+			fi
 		fi
 	fi
 

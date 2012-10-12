@@ -30,6 +30,21 @@ like_file $tmpd/out '^SYNOPSIS$' \
 like_file $tmpd/out '^BUGS$' \
 	'  BUGS section...good!'
 
+
+##	check the none test
+
+err=$( t/data/09-none-test.t >| $tmpd/out 2>| $tmpd/err || echo $? )
+is_num	${err:-0}	0	"  'simple none test exists successfully"
+
+ok "-e $tmpd/out -a ! -s $tmpd/out" \
+	'  no output on STDOUT'
+diag "STDOUT was: $(cat $tmpd/out)"
+
+ok "-e $tmpd/out -a ! -s $tmpd/err" \
+	'  no output on STDERR'
+diag "STDOUT was: $(cat $tmpd/err)"
+
+
 done_testing
 
 
