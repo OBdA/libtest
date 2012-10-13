@@ -32,7 +32,6 @@
 #..SYNOPSIS
 #..    ./libtest.sh --help
 #..
-#..    set -e
 #..    eval ". ./libtest.sh" || exit 255
 #..
 #..    tests	2
