@@ -47,6 +47,19 @@ tests( <number> )
     ok "$life -eq 42"  'the answer'
 
 
+done_testing( [number_of_tests] )
+  If you do not know how many test you will run, you can issue the plan
+  after running the test. 'number_of_tests' is the number of tests you
+  expected to run, equal to tests(). You can omit this, in this case the
+  number of run tests does not matter. They only have to pass.
+
+  Example:
+    . libtest.sh || exit 255
+    ok "-r $file"      'file is readable'
+    ok "$life -eq 42"  'the ultimate truth'
+    done_testing
+
+
 pass( <description> )
 fail( <description> )
   If you just want to pass or fail a test use these functions.
@@ -155,6 +168,10 @@ TODO( [description] )
     TODO
     ok "$prod -eq 1" 'productive test'
 
+  Setting the environment LIBTEST_NO_TODO to a non-empty value disables
+  the functionality of TODO. This can be used to proof that any TODO's
+  are open before publishing a version.
+
 
 BAIL_OUT( <reason> )
   This function stops further testing if the last test failed, and exit
@@ -164,6 +181,15 @@ BAIL_OUT( <reason> )
   Example:
     func_ok important_function   'important_function() available'
     BAIL_OUT 'important_function() *must* be available'
+
+
+tests_failed()
+  This function returns number of failed tests on STDOUT. If no test
+  failed no output is produced.
+
+  Example:
+    # save file when tests failed
+    if $(tests_failed) && rm -f $tmpfile
 
 
 BUGS
