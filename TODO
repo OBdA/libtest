@@ -1,13 +1,16 @@
 ==	MAIN
 
---	doc: no 'errexit' in tests (function is_status fails)
++	check correct handling of the exit status of subshells
+	- libtest.sh
+	- t/11-func-tests.t
+	- t/31-func-ok.t
+	- t/71-func-todo.t
+	- t/72-format-todo.t
+	- t/data/81-use-tmpfile.t
 
---	TODO message for unexpectly succeeded tests
---	handy wrapper function libtest_tmpfile() for mktemp(), which set variable
-	LIBTEST_TMPFILE and saves file name to remove all of them at the end
-	of the test script via __END__()
---	check tool usage for POSIX-compatibility
---	check zsh compatibility, add zsh dependant information
-
++	TODO message for unexpectly succeeded tests
++	check the usage of all tools for POSIX-compatibility (grep, sed, awk, ...)
+	- sed -r
+	- echo -n
 
 #EOF
