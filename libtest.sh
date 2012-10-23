@@ -1,6 +1,6 @@
 #! /bin/sh
 # libtest.sh
-# Shell library for testing (Ideas from Perl's Test::Harness)
+# Shell library for testing (Heavily inspired from Perl's Test::Harness)
 #
 #..    Copyright 2011,2012 Olaf Ohlenmacher
 #..
