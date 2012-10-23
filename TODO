@@ -7,5 +7,7 @@
 	LIBTEST_TMPFILE and saves file name to remove all of them at the end
 	of the test script via __END__()
 --	check tool usage for POSIX-compatibility
+--	check zsh compatibility, add zsh dependant information
+
 
 #EOF
