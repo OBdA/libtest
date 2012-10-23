@@ -272,6 +272,8 @@ cmp_ok ()
 #..    is_status   '0'  'command exits succesfully'
 #..    isnt_status '0'  'command failed'
 #..
+#..  This function is incompatible with the shell option 'errexit'. So, do
+#..  not use 'errexit' in your tests scripts containing is_status().
 #..
 is_status ()
 {
