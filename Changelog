@@ -8,6 +8,7 @@ libtest version 1.2:
       added done_testing() to register tests after all tests have run
       cleaned up the internal message handling
       renamed all tests and sorted by categories
+      added remark of incompatibility of is_status() with 'errexit'
 
 libtest version 1.1:
       fixed #bug-todo-message-format
