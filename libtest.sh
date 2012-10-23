@@ -43,11 +43,12 @@
 #..
 #..
 #..DESCRIPTION
-#..    You know about Perl's Test::Harness?
-#..    This is the shell version. It's output is compatible with the 'prove'
-#..    command to easily test whole bunches of test scripts.
+#..    This is libtest - a framework for regression tests for
+#..    POSIX-compatible shell scripts. It's heavily inspired from Perl's
+#..    Test::Harness and produces (more or less) compatible output for
+#..    the 'prove' command shipped with Perl.
 #..
-#..    To check libtest.sh itself on your platform with 'prove', run
+#..    To check libtest.sh would run in your environment run
 #..
 #..        prove --exec '/bin/sh -Cefu' t/
 #..
