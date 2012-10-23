@@ -1,0 +1,18 @@
+libtest version 1.2:
+      fixed #bug-summary-messages
+      fixed exit code when called with option --help
+      fixed simple execution
+      bullet-proof against options 'errexit', 'noclobber', 'noglob', 'nounset'
+      added function tests_failed() to check wheter any test has failed
+      added LIBTEST_NO_TODO to disable TODO blocks
+      added done_testing() to register tests after all tests have run
+      cleaned up the internal message handling
+      renamed all tests and sorted by categories
+
+libtest version 1.1:
+      fixed #bug-todo-message-format
+      updated TODO
+
+libtest version 1.0:
+      Initial version
+
