@@ -40,7 +40,7 @@ like_file	$tmp	"^# +Failed \(TODO\) test 'todo failed'" \
 #   in t/data/71-todo.t
 err=$(
 cat $tmp \
-| grep -E -A 1 		"^# +Failed \(TODO\) test 'todo failed'" \
+| sed -n "/^#[[:blank:]]*Failed (TODO) test 'todo failed'/ {N;p}" \
 | grep -q 'at t/data/71-todo\.t' \
 || echo $?
 )

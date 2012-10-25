@@ -198,7 +198,7 @@ func_ok ()
 	func=$1; shift
 	desc="$*"
 
-	type "$func" | egrep -q "$func is a( shell)? function"
+	type "$func" | grep -E -q "$func is a( shell)? function"
 	if [ "$?" -eq 0 ]
 	then
 		__ok  "$desc"
@@ -479,7 +479,7 @@ like ()
 	regexp=$1; shift
 	desc="$*"
 
-	if echo "$got" | egrep -q "$regexp"
+	if echo "$got" | grep -E -q "$regexp"
 	then
 		__ok  "$desc"
 	else
@@ -498,7 +498,7 @@ unlike ()
 	regexp=$1; shift
 	desc="$*"
 
-	if ! echo "$got" | egrep -q "$regexp"
+	if ! echo "$got" | grep -E -q "$regexp"
 	then
 		__ok  "$desc"
 	else
@@ -534,7 +534,7 @@ like_file ()
 		return 0
 	fi
 
-	if egrep -q "$regexp" "$file"
+	if grep -E -q "$regexp" "$file"
 	then
 		__ok "$desc"
 	else
@@ -560,7 +560,7 @@ unlike_file ()
 		return 0
 	fi
 
-	if ! egrep -q "$regexp" "$file"
+	if ! grep -E -q "$regexp" "$file"
 	then
 		__ok "$desc"
 	else
@@ -815,7 +815,7 @@ __is_number ()
 
 	val=$1
 
-	if echo "$val" | egrep -q '^[+-]?[0-9]+$'
+	if echo "$val" | grep -E -q '^[+-]?[[:digit:]]+$'
 	then
 		return 0
 	else

@@ -11,7 +11,7 @@ tmpd=$(mktemp -d t/tmp/,XXXXX)
 
 tests 7
 
-err=$(type func_ok | egrep -q 'func_ok is a( shell)? function' || echo $?)
+err=$(type func_ok | grep -E -q 'func_ok is a( shell)? function' || echo $?)
 is_num	${err:=0}	0	'func_ok()'
 BAIL_OUT "func_ok() not defined"
 
