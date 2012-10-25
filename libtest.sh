@@ -50,7 +50,8 @@
 #..
 #..    To check libtest.sh would run in your environment run
 #..
-#..        prove --exec '/bin/sh -Cefu' t/
+#..        prove --exec '/bin/sh  -Cefu' t/  # or 
+#..        prove --exec '/bin/zsh -CefU' t/  # for the zsh
 #..
 #..    If you have not installed Perl's 'prove' command, run
 #..
@@ -867,14 +868,8 @@ __END__ ()
 	exit $retval
 }
 
-__set_traps ()
-{
-	trap __END__ 	EXIT
-	#trap __DIE__ 		ERR
-
-	return 0
-}
-__set_traps
+# set EXIT trap to handle test summary and cleanup
+trap __END__ 	EXIT
 
 
 #..BUGS
