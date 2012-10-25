@@ -71,8 +71,9 @@ __libtest_counter=0		# holds number of run tests
 __libtest_failed=0		# holds number of failed tests
 __libtest_lasttest=0	# holds result of last test
 __libtest_called_dt=	# bool: was done_testing() already called?
+__libtest_tmpfiles=		# holds all temporary file that must be removed
 export __libtest_TODO __libtest_TODO_flag __libtest_plan __libtest_counter \
-	__libtest_failed __libtest_lasttest __libtest_called_dt
+	__libtest_failed __libtest_lasttest __libtest_called_dt __libtest_tmpfiles
 
 #..FUNCTIONS
 #..
@@ -671,6 +672,32 @@ tests_failed()
 	return 0
 }
 
+#..libtest_mktemp()
+#..  This function is a wrapper to mktemp(1) and creates a temporary
+#..  file or directory which is automatically removed when the test
+#..  script exists. The name of the file or directory is returned via
+#..  the environment variable LIBTEST_TMP.
+#..  See mktemp(1) for all available options for 'libtest_mktemp'.
+#..
+#..  Example:
+#..    libtest_mktemp -d
+#..    complex_command >| $LIBTEST_TMP/out 2>| $LIBTEST_TMP/err
+#..
+#..
+libtest_mktemp()
+{
+	local err
+
+	LIBTEST_TMP=$(command -p mktemp "$@")
+	err=$?
+
+	if test $err -eq 0; then
+		__libtest_tmpfiles="$__libtest_tmpfiles $LIBTEST_TMP"
+	fi
+
+	return $err
+}
+
 ##
 ##	Internal function
 ##
@@ -831,6 +858,11 @@ __END__ ()
 	# critical errors of the test script. See BAIL_OUT().
 	retval=$__libtest_failed
 	[ "$retval" -gt 254 ] && retval=254
+
+	# remove all files created with libtest_mktemp()
+	if test "$__libtest_tmpfiles"; then
+		rm -rf $__libtest_tmpfiles
+	fi
 
 	exit $retval
 }

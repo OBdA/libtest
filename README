@@ -194,6 +194,18 @@ tests_failed()
     if $(tests_failed) && rm -f $tmpfile
 
 
+libtest_mktemp()
+  This function is a wrapper to mktemp(1) and creates a temporary
+  file or directory which is automatically removed when the test
+  script exists. The name of the file or directory is returned via
+  the environment variable LIBTEST_TMP.
+  See mktemp(1) for all available options for 'libtest_mktemp'.
+
+  Example:
+    libtest_mktemp -d
+    complex_command >| $LIBTEST_TMP/out 2>| $LIBTEST_TMP/err
+
+
 BUGS
     Do not use traps on EXIT!
     libtest.sh use this trap to calculate test results. So, do not use
