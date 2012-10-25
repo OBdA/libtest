@@ -9,7 +9,7 @@
 
 # prepare the tests
 mkdir -p t/tmp
-tmpd=$(mktemp -d t/tmp/,nok.XXXXX)	|| exit 254
+tmpd=$(mktemp -d t/tmp/,nok.XXXXX)	|| exit 255
 
 
 ## run the tests
