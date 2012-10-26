@@ -1,16 +1,3 @@
 ==	MAIN
 
-+	check correct handling of the exit status of subshells
-	- libtest.sh
-	- t/11-func-tests.t
-	- t/31-func-ok.t
-	- t/71-func-todo.t
-	- t/72-format-todo.t
-	- t/data/81-use-tmpfile.t
-
-+	TODO message for unexpectly succeeded tests
-+	check the usage of all tools for POSIX-compatibility (grep, sed, awk, ...)
-	- sed -r
-	- echo -n
-
 #EOF
