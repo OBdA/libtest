@@ -24,7 +24,7 @@ DESCRIPTION
     To check libtest.sh would run in your environment run
 
         prove --exec '/bin/sh  -Cefu' t/  # or 
-        prove --exec '/bin/zsh -CefU' t/  # for the zsh
+        prove --exec '/bin/zsh -CeFu' t/  # for the zsh
 
     If you have not installed Perl's 'prove' command, run
 
