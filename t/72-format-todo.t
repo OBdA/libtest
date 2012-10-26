@@ -16,13 +16,13 @@ tmpd=$(mktemp -d t/tmp/,nok.XXXXX)	|| exit 255
 
 tests 4
 
-( t/data/72-format-todo.t ) >| $tmpd/out 2>| $tmpd/err
-is_status	0		'format test ok'
+err=$( t/data/72-format-todo.t >| $tmpd/out 2>| $tmpd/err || echo $?)
+is_num	${err:-0}	0		'format test ok'
 
 is_num	$(cat $tmpd/err|wc -l)	0		'no output on stderr'
 
-prove		-e /bin/sh t/data/72-format-todo.t >| $tmpd/prove.out 2>&1
-is_status	0		'proved returns 0'
+err=$(prove -e /bin/sh t/data/72-format-todo.t >| $tmpd/prove.out 2>&1 || echo $?)
+is_num	${er:-0}	0		'prove returns 0'
 like_file	$tmpd/prove.out	'Result: PASS'	'test passed (via prove)'
 diag "Output was:\n$(cat $tmpd/prove.out)"
 
