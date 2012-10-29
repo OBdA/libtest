@@ -1,3 +1,12 @@
+libtest version 1.3:
+      fixed trap handling to get zsh compatibility
+      fixed exit code to 255 in helper test scripts
+      fixed handling of exit code from subshells and test messages
+      added libtest_mktemp() for easy usable temporary files
+      added remark of incompatibility of is_status() with 'errexit'
+      made tool usage more POSIX-compatible
+      rewrote libtest's DESCRIPTION
+
 libtest version 1.2:
       fixed #bug-summary-messages
       fixed exit code when called with option --help
