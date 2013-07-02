@@ -73,8 +73,11 @@ __libtest_failed=0		# holds number of failed tests
 __libtest_lasttest=0	# holds result of last test
 __libtest_called_dt=	# bool: was done_testing() already called?
 __libtest_tmpfiles=		# holds all temporary file that must be removed
+__libtest_SKIP=			# holds SKIP message
+__libtest_SKIP_flag=	# is SKIP block active?
 export __libtest_TODO __libtest_TODO_flag __libtest_plan __libtest_counter \
-	__libtest_failed __libtest_lasttest __libtest_called_dt __libtest_tmpfiles
+	__libtest_failed __libtest_lasttest __libtest_called_dt __libtest_tmpfiles \
+	__libtest_SKIP __libtest_SKIP_flag
 
 #..FUNCTIONS
 #..
@@ -646,6 +649,49 @@ BAIL_OUT ()
 	exit 255
 }
 
+#..SKIP( <condition>, [description] )
+#..  When <condition> is true set all following tests are skipped.
+#..  Use SKIP_IF without any parameter to return to productive tests.
+#..
+#..  Example:
+#..    SKIP_IF "! -r /var/log/messages"  Test only if file is readable
+#..    like_file /var/log/messages "important message" 'message OK'
+#..    SKIP_IF
+#..    ok "$prod -eq 1" 'productive test'
+#..
+#..
+SKIP ()
+{
+	local cond
+	if [ $# -le 0 ]; then
+		__libtest_SKIP_flag=
+		return 0
+	fi
+
+	cond="$1"; shift;
+
+	__libtest_SKIP="$*"
+
+	# set flag if SKIP condition is true
+	__libtest_SKIP_flag=
+	if eval test $cond; then
+		__libtest_SKIP_flag=true
+	fi
+
+	return 0
+}
+
+__skipped()
+{
+	# return false unless SKIP is active
+	[ $__libtest_SKIP_flag ] || return 1
+
+	__libtest_lasttest=0
+	__libtest_counter=$(( $__libtest_counter + 1 ))
+	echo "ok $__libtest_counter # skip $__libtest_SKIP"
+	return 0
+}
+
 #..tests_failed()
 #..  This function returns number of failed tests on STDOUT. If no test
 #..  failed no output is produced.
@@ -749,6 +795,7 @@ __ok ()
 
 	desc=$1
 
+	__skipped && return 0
 	__libtest_lasttest=0
 	__libtest_counter=$(( $__libtest_counter + 1 ))
 
@@ -770,6 +817,7 @@ __nok ()
 
 	desc=$1
 
+	__skipped && return 0
 	__libtest_lasttest=1
 	__libtest_counter=$(( $__libtest_counter + 1 ))
 
