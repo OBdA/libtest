@@ -1,23 +1,25 @@
 #! /bin/sh
+set -e
 
 . ./libtest.sh || exit 255
 
-tests 5
+tests 6
 
-type func_ok | grep -q 'func_ok is a shell function'
-ok		"$? -eq 0"					'func_ok()'
-BAIL_OUT "func_ok() not defined"
+# empty function
+func_ok	''				"empty function argument (failed)"
+is_status 0 			"empty: rc ok"
 
-func_ok	func_ok			'func_ok() defined'
+# non-existent function
+func_ok 'non_existent'	"non existent function (failed)"
+is_status 0 			"non-existent: rc ok"
 
-func_ok	nonexistent	'nonexistent() defined (failed)'
-func_ok	''			'empty function argument (failed)'
-
+# real function
 new_func_def ()
 {
 :
 }
 func_ok	new_func_def	'new_func_def() defined'
+is_status 0 			"real function: rc ok"
 
 
 #EOF

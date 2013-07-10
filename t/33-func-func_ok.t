@@ -9,25 +9,14 @@ tmpd=$(mktemp -d t/tmp/,XXXXX)
 [ -d "$tmpd" ] || exit 255
 
 
-tests 7
+tests 2
 
-err=$(type func_ok | grep -E -q 'func_ok is a( shell)? function' || echo $?)
-is_num	${err:=0}	0	'func_ok()'
-BAIL_OUT "func_ok() not defined"
+# run test with shell option errexit
+err=$( sh -e t/data/33-func_ok.t >| $tmpd/out 2>| $tmpd/err || echo $?)
+is_num $err 2		"two tests must fail"
 
-func_ok func_ok			'func_ok defined'
-
-
-err=$( t/data/33-func_ok.t >| $tmpd/out 2>| $tmpd/err || echo $?)
-is_num	${err:=0}	2	'Test script'
-
-ok "-s $tmpd/out -a -s $tmpd/err"	'Output'
-
-is_num $(cat $tmpd/out | wc -l)	6	'  count stdout'
-is_num $(cat $tmpd/err | wc -l)	7	'  count stderr'
-
-like_file	$tmpd/err	"# Looks like you failed 2 tests of 5 run\." \
-	"test summary"
+failed_expected=$(cat $tmpd/out | grep -E 'not ok.*failed' | wc -l)
+is_num $failed_expected 2 "expected two tests to fail"
 
 
 rm -rf $tmpd

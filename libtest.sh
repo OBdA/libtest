@@ -198,14 +198,12 @@ func_ok ()
 	func=$1; shift
 	desc="$*"
 
-	type "$func" | grep -E -q "$func is a( shell)? function"
-	if [ "$?" -eq 0 ]
-	then
+	if type "$func" | grep -E -q "$func is a( shell)? function"; then
 		__ok  "$desc"
-	else
-		__nok "$desc"
-		__libtest_message "  Function '$func' is not defined."
+		return 0
 	fi
+	__nok "$desc"
+	__libtest_message "  Function '$func' is not defined."
 
 	return 0
 }
