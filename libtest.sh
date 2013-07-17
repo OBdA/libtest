@@ -50,8 +50,8 @@
 #..
 #..    To check libtest.sh would run in your environment run
 #..
-#..        prove --exec '/bin/sh  -Cefu' t/  # or 
-#..        prove --exec '/bin/zsh -CeFu' t/  # for the zsh
+#..        SHELL=/bin/sh  prove --exec '/bin/sh  -Cefu' t/  # or
+#..        SHELL=/bin/zsh prove --exec '/bin/zsh -CeFu' t/  # for the zsh
 #..
 #..    If you have not installed Perl's 'prove' command, run
 #..
