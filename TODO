@@ -1,6 +1,0 @@
-==	MAIN
-
-+ add shell option -e to every data test script (see t/data/33-func_ok.t)
-
-
-#EOF
