@@ -1,4 +1,3 @@
-#! /bin/sh
 
 # prepare the tests
 mkdir -p t/tmp

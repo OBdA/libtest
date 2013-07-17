@@ -1,4 +1,3 @@
-#! /bin/sh
 
 file=t/data/like_file.data
 

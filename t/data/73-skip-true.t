@@ -1,4 +1,3 @@
-#! /bin/sh
 set -e
 
 . ./libtest.sh || exit 255
