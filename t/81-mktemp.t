@@ -24,5 +24,7 @@ ok "! -e '$file'"		'tmpfile successfully deleted on test __END__'
 
 done_testing
 
-${DEBUG:-} || rm -rf $tmpd
+${DEBUG:+echo DRYRUN} rm -rf $tmpd
+exit 0
+
 #EOF

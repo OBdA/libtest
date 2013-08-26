@@ -18,4 +18,6 @@ is_num	${err:-0}	0	'Tests are all successfull'
 is_num $(grep '^#' $tmp|wc -l)		0   'No messages in output'
 is_num $(grep '^not' $tmp|wc -l)	0   'No failed tests'
 
+rm -rf $tmp
+
 #EOF

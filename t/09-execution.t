@@ -47,7 +47,7 @@ diag "STDOUT was: $(cat $tmpd/err)"
 done_testing
 
 
-test ${DEBUG:-} || rm -rf $tmpd
+${DEBUG:+echo DEBUG} rm -rf $tmpd
 exit 0
 
 #EOF

@@ -22,7 +22,7 @@ like_file $tmpd/out	'ok 1 - passed'		'  message for __ok()'
 like_file $tmpd/out	'not ok 2 - failed'	'  message for __nok()'
 
 
-test ${DEBUG:-} || rm -rf $tmpd
+${DEBUG:+echo DEBUG} rm -rf $tmpd
 exit 0
 
 #EOF

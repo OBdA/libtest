@@ -34,5 +34,7 @@ like_file	$tmpd/p.out	'1 TODO test unexpectedly succeeded' \
 						'one todo test unexpectedly succeeded'
 
 
-${DEBUG:-} || rm -rf $tmpd
+${DEBUG:+echo DEBUG} rm -rf $tmpd
+exit 0
+
 #EOF
