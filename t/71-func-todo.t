@@ -20,7 +20,7 @@ tests 7
 err=$( 
 	# run without LIBTEST_NO_TODO
 	unset LIBTEST_NO_TODO
-	t/data/71-todo.t >| $tmp 2>&1 || echo $?
+	$SHELL t/data/71-todo.t >| $tmp 2>&1 || echo $?
 )
 is_num ${err:=0} 1	'with TODO: only one test failed'
 
@@ -53,7 +53,7 @@ is_num	${err:=0}	0	'  Failed description with file info'
 err=$(
 	# check behaviour with LIBTEST_NO_TODO
 	LIBTEST_NO_TODO=1; export LIBTEST_NO_TODO
-	t/data/71-todo.t >| $tmp 2>&1 || echo $?
+	$SHELL t/data/71-todo.t >| $tmp 2>&1 || echo $?
 )
 is_num	${err:=0}	2	'without TODO: two tests failed'
 

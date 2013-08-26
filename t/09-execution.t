@@ -32,7 +32,7 @@ like_file $tmpd/out '^BUGS$' \
 
 ##	check the none test
 
-err=$( t/data/09-none-test.t >| $tmpd/out 2>| $tmpd/err || echo $? )
+err=$( $SHELL t/data/09-none-test.t >| $tmpd/out 2>| $tmpd/err || echo $? )
 is_num	${err:-0}	0	"  'simple none test exists successfully"
 
 ok "-e $tmpd/out -a ! -s $tmpd/out" \

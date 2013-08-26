@@ -16,7 +16,7 @@ func_ok	isnt					'isnt()'
 BAIL_OUT "isnt() not defined"
 
 
-err=$( t/data/41-is.t >| $tmpd/out 2>| $tmpd/err || echo $?)
+err=$( $SHELL t/data/41-is.t >| $tmpd/out 2>| $tmpd/err || echo $?)
 is_num	${err:=0}	5	'test script'
 
 ok "-s $tmpd/out -a -s $tmpd/err"	'Output'

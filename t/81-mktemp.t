@@ -16,7 +16,7 @@ tmpd=$(mktemp -d t/tmp/,nok.XXXXX)	|| exit 255
 func_ok libtest_mktemp		'libtest_mktemp() exists'
 BAIL_OUT 'Oh, no libtest version of mktemp available'
 
-err=$( t/data/81-use-tmpfile.t >| $tmpd/out 2>| $tmpd/err || echo $?)
+err=$( $SHELL t/data/81-use-tmpfile.t >| $tmpd/out 2>| $tmpd/err || echo $?)
 is_num	${err:-0}	0	'successfully run all tests using the tmpfile'
 
 file=$(cat $tmpd/out |  sed -n '/^tmpfile=/ {s/tmpfile=//;p}' || :)

@@ -16,7 +16,7 @@ func_ok	isnt_status					'isnt_status()'
 BAIL_OUT "isnt_status() not defined"
 
 
-err=$( t/data/42-is_status.t >| $tmpd/out 2>| $tmpd/err || echo $?)
+err=$( $SHELL t/data/42-is_status.t >| $tmpd/out 2>| $tmpd/err || echo $?)
 cmp_ok ${err:=0} '-eq' 6			'test script'
 
 ok "-s $tmpd/out -a -s $tmpd/err"	'  Output'

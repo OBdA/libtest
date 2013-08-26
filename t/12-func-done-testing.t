@@ -13,7 +13,7 @@ func_ok	done_testing						'function done_testing()'
 
 
 ## no tests(), no done_testing() was run
-err=$( t/data/12-nothing.t >| $tmpd/out 2>| $tmpd/err || echo $?)
+err=$( $SHELL t/data/12-nothing.t >| $tmpd/out 2>| $tmpd/err || echo $?)
 is_num	${err:=0}	0	't/data/12-nothing.t exits like expected'
 
 like_file	$tmpd/err \
@@ -23,7 +23,7 @@ diag "STDERR was '$(cat $tmpd/err)'"
 
 
 ## argument to done_testing is not a number
-err=$( t/data/12-no-number.t >| $tmpd/out 2>| $tmpd/err || echo $?)
+err=$( $SHELL t/data/12-no-number.t >| $tmpd/out 2>| $tmpd/err || echo $?)
 is_num	${err:=0}	255	't/data/12-no-number.t exits like expected'
 
 like_file	 $tmpd/err \
@@ -32,7 +32,7 @@ like_file	 $tmpd/err \
 
 
 ## no tests() - only done_testing()
-err=$( t/data/12-no-plan.t >| $tmpd/out 2>| $tmpd/err || echo $?)
+err=$( $SHELL t/data/12-no-plan.t >| $tmpd/out 2>| $tmpd/err || echo $?)
 is_num	${err:=0}	0	't/data/12-no-plan.t exits like expected'
 
 ok "! -s $tmpd/err"		'  no output on STDERR'
@@ -43,7 +43,7 @@ is_num	${err:=0}	0	'  plan is on last line'
 
 
 ## planed more than done_testing()
-err=$( t/data/12-more-planned.t >| $tmpd/out 2>| $tmpd/err || echo $?)
+err=$( $SHELL t/data/12-more-planned.t >| $tmpd/out 2>| $tmpd/err || echo $?)
 is_num	${err:=0}	2	't/data/12-more-planned.t exits like expected'
 like_file	 $tmpd/out \
 	"not ok 4 - planned to run 5 but done_testing\(\) expects 3" \
@@ -54,7 +54,7 @@ like_file	 $tmpd/err \
 
 
 ## planed less than done_testing()
-err=$( t/data/12-less-planned.t >| $tmpd/out 2>| $tmpd/err || echo $?)
+err=$( $SHELL t/data/12-less-planned.t >| $tmpd/out 2>| $tmpd/err || echo $?)
 is_num	${err:=0}	2	't/data/12-less-planned.t exits like expected'
 like_file	 $tmpd/out \
 	"not ok 4 - planned to run 1 but done_testing\(\) expects 3" \
@@ -65,7 +65,7 @@ like_file	 $tmpd/err \
 
 
 ## done_testing() was called twice
-err=$( t/data/12-called-twice.t >| $tmpd/out 2>| $tmpd/err || echo $?)
+err=$( $SHELL t/data/12-called-twice.t >| $tmpd/out 2>| $tmpd/err || echo $?)
 is_num	${err:=0}	2	't/data/12-called-twice.t exits like expected'
 diag  "failed extra test 'called twice'" \
 	"\nfailed extra test 'planned ... but done_testing expects'"

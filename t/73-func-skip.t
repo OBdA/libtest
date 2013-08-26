@@ -18,7 +18,7 @@ tests 10
 
 ## check if skip condition is false
 
-err=$( t/data/73-skip-false.t >| $tmp1 2>&1 || echo $? )
+err=$( $SHELL t/data/73-skip-false.t >| $tmp1 2>&1 || echo $? )
 is_num ${err:=0} 2	'not skipping: two tests failed'
 
 like_file	$tmp1	"^ok.*not skipped ok" \
@@ -34,7 +34,7 @@ like_file	$tmp1	"^not ok.*test failed" \
 
 ## check if skip condition is true
 
-err=$( t/data/73-skip-true.t >| $tmp2 2>&1 || echo $? )
+err=$( $SHELL t/data/73-skip-true.t >| $tmp2 2>&1 || echo $? )
 is_num ${err:=0} 1	'skipping: only one test failed'
 
 like_file	$tmp2	"^ok 1 # skip live your life" \
