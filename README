@@ -23,8 +23,8 @@ DESCRIPTION
 
     To check libtest.sh would run in your environment run
 
-        prove --exec '/bin/sh  -Cefu' t/  # or 
-        prove --exec '/bin/zsh -CeFu' t/  # for the zsh
+        SHELL=/bin/sh  prove --exec '/bin/sh  -Cefu' t/  # or
+        SHELL=/bin/zsh prove --exec '/bin/zsh -CeFu' t/  # for the zsh
 
     If you have not installed Perl's 'prove' command, run
 
@@ -184,6 +184,17 @@ BAIL_OUT( <reason> )
   Example:
     func_ok important_function   'important_function() available'
     BAIL_OUT 'important_function() *must* be available'
+
+
+SKIP( <condition>, [description] )
+  When <condition> is true set all following tests are skipped.
+  Use SKIP_IF without any parameter to return to productive tests.
+
+  Example:
+    SKIP_IF "! -r /var/log/messages"  Test only if file is readable
+    like_file /var/log/messages "important message" 'message OK'
+    SKIP_IF
+    ok "$prod -eq 1" 'productive test'
 
 
 tests_failed()
