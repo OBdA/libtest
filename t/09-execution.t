@@ -1,3 +1,4 @@
+set -e
 
 # prepare the tests
 mkdir -p t/tmp
