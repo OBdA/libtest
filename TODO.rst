@@ -2,6 +2,7 @@ MAIN
 ====
 
 + install zsh and test against it
++ update Cahngelog and release 1.4
   
 
 NEXT
