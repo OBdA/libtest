@@ -1,12 +1,7 @@
 MAIN
 ====
 
-+ add shell option -e to every data test script (see t/data/33-func_ok.t)
-+ use $SHELL to start all data test scripts
-
-  - add documentation::
-  
-    SHELL=/bin/dash prove -e "/bin/dash -Cefu" t/
++ install zsh and test against it
   
 
 NEXT
