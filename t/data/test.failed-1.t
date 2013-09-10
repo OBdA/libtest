@@ -3,8 +3,8 @@
 
 tests 3
 
-ok "0 =! 0" 		failed
-ok "0 =! 0" 		failed
-ok "0 =! 0" 		failed
+ok "0 != 0" 		failed
+ok "0 != 0" 		failed
+ok "0 != 0" 		failed
 
 #EOF
