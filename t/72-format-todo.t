@@ -27,6 +27,6 @@ like_file	$tmpd/prove.out	'Result: PASS'	'test passed (via prove)'
 diag "Output was:\n$(cat $tmpd/prove.out)"
 
 ${DEBUG:+echo DEBUG} rm -rf $tmpd
-exit 0
+done_testing
 
 #EOF

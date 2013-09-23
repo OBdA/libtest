@@ -11,4 +11,5 @@ three unquoted newlines"
 ok "1 -eq 0"			'quoted newlines'
 diag '1: multiline\n2: with quoted\n3: newlines'
 
+done_testing
 #EOF

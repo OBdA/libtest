@@ -20,6 +20,5 @@ is_num $failed_expected 2 "expected two tests to fail"
 
 
 rm -rf $tmpd
-exit 0
-
+done_testing
 #EOF

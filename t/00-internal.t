@@ -24,6 +24,5 @@ like_file $tmpd/out	'not ok 2 - failed'	'  message for __nok()'
 
 
 ${DEBUG:+echo DEBUG} rm -rf $tmpd
-exit 0
-
+done_testing
 #EOF

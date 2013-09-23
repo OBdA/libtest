@@ -31,4 +31,5 @@ ok '$(t1) = "t1"'	't1() has value "t1"'
 t2  > /dev/null
 ok "$? -eq 2"		't2() returns 2'
 
+done_testing
 #EOF

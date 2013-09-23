@@ -33,6 +33,5 @@ like_file	$tmpd/err	"expected anything not matching:" \
 
 
 rm -rf $tmpd
-exit 0
-
+done_testing
 #EOF

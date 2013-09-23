@@ -21,4 +21,5 @@ is_num $(grep '^not' $tmp|wc -l)	0   'No failed tests'
 
 rm -rf $tmp
 
+done_testing
 #EOF

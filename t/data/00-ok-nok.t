@@ -4,4 +4,5 @@
 __ok passed		|| true
 __nok failed	|| true
 
+done_testing
 #EOF

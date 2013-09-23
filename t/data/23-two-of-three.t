@@ -9,5 +9,5 @@ fail	'test #3'
 
 echo "tests_failed:$(tests_failed)"
 
-exit 0
+done_testing
 #EOF

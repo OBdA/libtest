@@ -24,6 +24,5 @@ like_file	$tmp	'FAILED!'			'  description of BAIL_OUT'
 
 
 rm -f $tmp
-exit 0
-
+done_testing
 #EOF

@@ -10,5 +10,5 @@ TODO messages
 pass	'todo test passed'
 fail	'todo test failed'
 
-exit 0
+done_testing
 #EOF

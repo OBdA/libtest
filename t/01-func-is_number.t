@@ -49,6 +49,6 @@ else
 fi
 
 
-exit 0
+done_testing
 
 #EOF

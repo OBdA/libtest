@@ -25,6 +25,6 @@ is_num	${err:=0}	2					'zero of three failed'
 like_file	$tmp	'^tests_failed:2$'	'  output of tests_failed'
 
 ${DEBUG:+echo DEBUG} rm -rf $tmp
-exit 0
+done_testing
 
 #EOF

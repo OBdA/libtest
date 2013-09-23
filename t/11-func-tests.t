@@ -36,6 +36,6 @@ unlike_file $tmpd/out	"^#" \
 
 
 rm -rf $tmpd
-exit 0
+done_testing
 
 #EOF

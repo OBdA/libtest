@@ -44,6 +44,6 @@ like_file $tmpd/err	"expected: '0'"						'  want zero'
 
 
 rm -rf $tmpd
-exit 0
+done_testing
 
 #EOF

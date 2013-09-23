@@ -43,6 +43,5 @@ like_file $tmpd/err	'expected: anything else' \
 	'  expected anything else'
 
 rm -rf $tmpd
-exit 0
-
+done_testing
 #EOF

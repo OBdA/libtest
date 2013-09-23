@@ -24,4 +24,5 @@ is		"apple"		"plum"			'  got apple expect plum'
 isnt	"silver"	"gold"			'  got silver expect no gold'
 isnt	"gold"		"gold"			'  got gold expect no gold'
 
+done_testing
 #EOF

@@ -26,4 +26,6 @@ like_file	$tmp	"Looks like you failed 1 tests of 2 run\." \
 	'  test summary'
 
 rm -f $tmp
+done_testing
+
 #EOF

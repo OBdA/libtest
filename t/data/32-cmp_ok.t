@@ -14,4 +14,5 @@ cmp_ok "0"	'-eq' "0"					'got zero want zero'
 cmp_ok "3"	'-eq' "0"					'got three want zero'
 
 
+done_testing
 #EOF

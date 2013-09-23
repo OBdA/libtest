@@ -20,4 +20,5 @@ unlike	'hefezopf'		'kuchen'	'kein kuchen da'
 unlike	'/usr/bin/grep'	'\/bin\/'	'no executable'
 
 
+done_testing
 #EOF

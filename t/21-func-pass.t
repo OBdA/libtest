@@ -33,6 +33,6 @@ like_file $tmpd/err	"# Looks like you failed 1 tests of 4 run\." \
 
 
 rm -rf $tmpd
-exit 0
+done_testing
 
 #EOF

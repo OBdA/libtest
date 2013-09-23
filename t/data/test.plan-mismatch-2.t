@@ -8,4 +8,5 @@ ok 2		success
 ok 3		success
 ok 4		success
 
+done_testing
 #EOF

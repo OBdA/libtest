@@ -11,6 +11,5 @@ is_num	5	42	'another test failed'
 fail			'third todo test failed'
 TODO
 
-exit 0
-
+done_testing
 #EOF

@@ -24,4 +24,5 @@ unlike_file	$file		'hosts$'		'hosts file (failed)'
 unlike_file	t/data/nonexistent	'asdfg'	'true (failed)'
 
 
+done_testing
 #EOF

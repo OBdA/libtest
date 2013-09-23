@@ -33,6 +33,6 @@ like_file	$tmpd/err	"RegExp: 'nutella'" \
 
 
 rm -rf $tmpd
-exit 0
+done_testing
 
 #EOF

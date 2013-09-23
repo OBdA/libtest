@@ -63,5 +63,6 @@ unlike_file	$tmp	'\(TODO\)' \
 
 
 rm -f $tmp
+done_testing
 
 #EOF

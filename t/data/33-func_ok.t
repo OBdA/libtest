@@ -20,5 +20,5 @@ new_func_def ()
 func_ok	new_func_def	'new_func_def() defined'
 is_status 0 			"real function: rc ok"
 
-
+done_testing
 #EOF

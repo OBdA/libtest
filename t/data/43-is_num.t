@@ -21,4 +21,5 @@ isnt_num	0			0				'  0  != 0'
 isnt_num	-15			-1				' -15 != -1'
 isnt_num	15			0				'  15 != 0'
 
+done_testing
 #EOF

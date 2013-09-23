@@ -7,4 +7,5 @@ ok "0 != 0" 		failed
 ok "0 != 0" 		failed
 ok "0 != 0" 		failed
 
+done_testing
 #EOF

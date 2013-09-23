@@ -40,4 +40,5 @@ isnt_status		1	'  false returns NOT 2 (failed)'
 ( exit 11 )
 isnt_status		11	'  exit 11 returns NOT 11 (failed)'
 
+done_testing
 #EOF

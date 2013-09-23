@@ -6,4 +6,5 @@ tests 3
 ok 1 		sucess
 ok 2		success
 
+done_testing
 #EOF

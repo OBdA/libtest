@@ -9,4 +9,5 @@ func_ok fail	'fail()'
 pass			'test has passed'
 fail			'test has failed'
 
+done_testing
 #EOF

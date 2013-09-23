@@ -16,4 +16,5 @@ ok "0 -eq 0"			'test ok'
 
 ok "1 -eq 0"			'test failed'
 
+done_testing
 #EOF

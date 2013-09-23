@@ -36,6 +36,5 @@ like_file	$tmpd/p.out	'1 TODO test unexpectedly succeeded' \
 
 
 ${DEBUG:+echo DEBUG} rm -rf $tmpd
-exit 0
-
+done_testing
 #EOF

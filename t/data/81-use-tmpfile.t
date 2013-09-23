@@ -18,4 +18,5 @@ ok "-s $LIBTEST_TMP"	'  tmpfile now has size greater zero'
 
 # DO NOT DELETE $LIBTEST_TMP
 
+done_testing
 #EOF
