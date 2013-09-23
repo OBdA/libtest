@@ -122,9 +122,6 @@ done_testing ()
 	
 	if ! __is_number "${plan:-0}"; then
 		echo "done_testing: $plan: argument is not a number" 1>&2
-
-		# remove EXIT trap
-		trap - EXIT
 		exit 255
 	fi
 
@@ -137,19 +134,21 @@ done_testing ()
 			# check plan and done_testing differs
 			__nok "planned to run $__libtest_plan but done_testing() expects $plan"
 		fi
-		return 0
+	else
+		# output plan if no tests() was given
+		if test $__libtest_plan -lt 0; then
+			echo 1..$plan
+		fi
+
+		# set __libtest_plan
+		__libtest_plan=$plan
+
+		__libtest_called_dt=1
 	fi
 
-	# output plan if no tests() was given
-	if test $__libtest_plan -lt 0; then
-		echo 1..$plan
-	fi
+	__END__		# print statistics and exit test script
 
-	# set __libtest_plan
-	__libtest_plan=$plan
-
-	__libtest_called_dt=1
-	return 0
+	# never reached
 }
 
 #..pass( <description> )
@@ -643,9 +642,6 @@ BAIL_OUT ()
 	fi
 
 	echo "Bail out!  $why"
-
-	# no summary message - remove trap for EXIT
-	trap - EXIT
 	exit 255
 }
 
@@ -871,8 +867,6 @@ __is_number ()
 
 
 # __END__
-# Function called by EXIT trap
-#
 # Print test summary and exit the test with correct exit status.
 #
 __END__ ()
@@ -883,8 +877,8 @@ __END__ ()
 	if test "$__libtest_counter" -gt 0; then
 		if [ "$__libtest_plan" -lt 0 ]
 		then
-			echo \# Tests were run but no plan was declared and done_testing\(\) \
-				was not seen. 1>&2
+			echo \# Tests were run but no plan was declared and \
+				done_testing\(\) was not seen. 1>&2
 		else
 			if [ "$__libtest_plan" -ne "$__libtest_counter" ]
 			then
@@ -914,15 +908,7 @@ __END__ ()
 	exit $retval
 }
 
-# set EXIT trap to handle test summary and cleanup
-trap __END__ 	EXIT
 
-
-#..BUGS
-#..    Do not use traps on EXIT!
-#..    libtest.sh use this trap to calculate test results. So, do not use
-#..    'trap' in your test scripts.
-#..
 #..AUTHOR
 #..    Written by Olaf Ohlenmacher
 #..
