@@ -1,3 +1,15 @@
+BUGS
+====
+
++ check for message 'many test planned but only ran x'
+8<--------------------------
+. ./libtest.sh || exit 255
+test 5
+ok "1 -eq 1"            'test ok'
+done_testing
+8<--------------------------
+
+
 MAIN
 ====
 

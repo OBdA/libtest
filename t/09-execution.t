@@ -27,8 +27,8 @@ like_file $tmpd/out 'Copyright .* Olaf Ohlenmacher.*License GPL' \
 like_file $tmpd/out '^SYNOPSIS$' \
 	'  SYNOPSIS section...found'
 
-like_file $tmpd/out '^BUGS$' \
-	'  BUGS section...good!'
+unlike_file $tmpd/out '^BUGS$' \
+	'  No BUGS section...good!'
 
 
 ##	check the none test

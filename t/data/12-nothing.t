@@ -5,5 +5,4 @@ pass 'first test'
 pass 'second test'
 pass 'third test'
 
-done_testing
 #EOF

@@ -1,5 +1,5 @@
 
 . ./libtest.sh
 
-done_testing
+#done_testing
 #EOF
