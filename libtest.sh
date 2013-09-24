@@ -25,6 +25,10 @@
 	&& exec grep '^#\.\.' "$0" | sed 's/^#..//' && exit 0
 
 
+# Workaround the zsh default settings
+setopt NOFUNCTION_ARGZERO	>/dev/null 2>&1 || :
+
+
 #..NAME
 #..    libtest.sh
 #..
