@@ -3,8 +3,6 @@ MAIN
 
 + install zsh and test against it
 + update Changelog and release 1.4
-
-+ add test (SKIP) for checking return value of the zsh
   
 
 NEXT
