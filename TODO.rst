@@ -1,22 +1,24 @@
 BUGS
 ====
 
-+ zsh does not remove tmp files::
++ test for func_ok() fails
+  zsh t/33-func-func_ok.t 
+  1..2
+  not ok 1 - two tests must fail 
+  #   Failed test 'two tests must fail'
+  #   at t/33-func-func_ok.t
+  #          got: '127'
+  #     expected: '2'
+  not ok 2 - expected two tests to fail 
+  #   Failed test 'expected two tests to fail'
+  #   at t/33-func-func_ok.t
+  #          got: '0'
+  #     expected: '2'
+  # Looks like you failed 2 tests of 2 run.
 
-  $ zsh t/data/81-use-tmpfile.t 
-  1..4
-  ok 1 - mktemp() run successfully 
-  tmpfile=/tmp/tmp.zpxHaP9ce8
-  ok 2 -   tmpfile exists and is writable
-  ok 3 -   tmpfile has zero size 
-  ok 4 -   tmpfile now has size greater zero
++ use SH_OPTION_LETTERS?
+  Ist es damit möglich zsh -Cefu' zu benutzen?
   
-Remark:
-ZSH expandiert __libtest_tmpfiles mit einem Leerzeichen. Das soll
-eigentlich nur die einzelnen temporären Dateien voneinander trennen.
-wird aber im Befehl anscheinend mit evaluiert, so dass die Datei
-'/tmp/tmp.ssdsd ' nicht existiert und daher nicht gelöscht wird.
-
 
 + check for message 'many test planned but only ran x'
 8<--------------------------
