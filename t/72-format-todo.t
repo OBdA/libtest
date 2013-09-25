@@ -26,7 +26,7 @@ is_num	${er:-0}	0		'prove returns 0'
 like_file	$tmpd/prove.out	'Result: PASS'	'test passed (via prove)'
 diag "Output was:\n$(cat $tmpd/prove.out)"
 
-${DEBUG:+echo DEBUG} rm -rf $tmpd
+${DEBUG:+echo} rm -rf $tmpd
 done_testing
 
 #EOF

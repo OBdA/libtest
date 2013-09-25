@@ -12,7 +12,7 @@ tests 1
 err=$( $SHELL t/data/90-bug-exit-code-254.t >| /dev/null 2>&1 || echo $?)
 is_num	${err:=0}	3		'Bug #exit-code-254'
 
-${DEBUG:+echo DEBUG} rm -rf $tmp
+${DEBUG:+echo} rm -rf $tmp
 done_testing
 
 #EOF

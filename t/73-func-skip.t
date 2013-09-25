@@ -50,7 +50,7 @@ like_file	$tmp2	"^not ok 4 - test failed" \
 
 done_testing
 
-${DEBUG:+echo DRYRUN} rm -f $tmp1 $tmp2
+${DEBUG:+echo} rm -f $tmp1 $tmp2
 exit 0
 
 #EOF
