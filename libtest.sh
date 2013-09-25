@@ -28,6 +28,9 @@
 # Workaround the zsh default settings
 setopt NOFUNCTION_ARGZERO	>/dev/null 2>&1 || :
 
+# Workaround the zsh word splitting
+setopt SH_WORD_SPLIT
+
 
 #..NAME
 #..    libtest.sh
@@ -906,7 +909,7 @@ __END__ ()
 
 	# remove all files created with libtest_mktemp()
 	if test "$__libtest_tmpfiles"; then
-		rm -rf $__libtest_tmpfiles
+		rm -rf $__libtest_tmpfiles	# ZSH needs SH_WORD_SPLIT for this!
 	fi
 
 	exit $retval
