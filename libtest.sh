@@ -25,12 +25,13 @@
 	&& exec grep '^#\.\.' "$0" | sed 's/^#..//' && exit 0
 
 
-# Workaround the zsh default settings
-setopt NOFUNCTION_ARGZERO	>/dev/null 2>&1 || :
+if type setopt 2>/dev/null | grep -E 'builtin' >/dev/null 2>&1; then
+	# Workaround the zsh default settings
+	setopt NOFUNCTION_ARGZERO
 
-# Workaround the zsh word splitting
-setopt SH_WORD_SPLIT
-
+	# Workaround the zsh word splitting
+	setopt SH_WORD_SPLIT
+fi
 
 #..NAME
 #..    libtest.sh
