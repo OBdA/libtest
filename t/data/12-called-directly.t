@@ -1,7 +1,7 @@
 
 . ./libtest.sh || exit 255
 
-done_testing 1
+done_testing 2
 
 pass 'first test'
 pass 'second test'
