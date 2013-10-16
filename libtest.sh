@@ -119,7 +119,7 @@ tests ()
 #..    done_testing
 #..
 #..
-done_testing ()
+done_testing()
 {
 	local plan
 	plan=${1:-}
@@ -152,6 +152,12 @@ done_testing ()
 		__libtest_plan=$plan
 
 		__libtest_called_dt=1
+	fi
+
+	if [ $__libtest_counter -eq 0 ]; then
+		__libtest_lasttest=1	# Workaround: send message to STDERR
+		__libtest_message "No tests run!"
+		exit 255
 	fi
 
 	__END__		# print statistics and exit test script
