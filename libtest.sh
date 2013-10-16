@@ -42,12 +42,12 @@ fi
 #..
 #..    eval ". ./libtest.sh" || exit 255
 #..
-#..    tests	2
 #..    func_ok	test_it      'function test_it()'
 #..    BAIL_OUT 'function test_it() undefined -- forgot to source?'
 #..
 #..    test_it
 #..    is_status 0           'successfull execution'
+#..    done_testing 2
 #..
 #..
 #..DESCRIPTION
@@ -91,6 +91,7 @@ export __libtest_TODO __libtest_TODO_flag __libtest_plan __libtest_counter \
 #..
 #..tests( <number> )
 #..  Plan your tests. This function set the number of planed tests.
+#..  It is better to use done_testing() instead, see below.
 #..
 #..  Example:
 #..    tests 2
@@ -108,9 +109,13 @@ tests ()
 
 #..done_testing( [number_of_tests] )
 #..  If you do not know how many test you will run, you can issue the plan
-#..  after running the test. 'number_of_tests' is the number of tests you
-#..  expected to run, equal to tests(). You can omit this, in this case the
-#..  number of run tests does not matter. They only have to pass.
+#..  after running the test.
+#..  You have to call this function at the very end of every test script.
+#..  It summarises all tests and prints results and information to STDOUT,
+#..  warnings and errors to STDERR. 'number_of_tests' is the number of
+#..  tests you expected to run, equal to tests(). You can omit this,
+#..  in this case the number of run tests does not matter. They only
+#..  have to pass.
 #..
 #..  Example:
 #..    . libtest.sh || exit 255
