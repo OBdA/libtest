@@ -7,12 +7,12 @@ SYNOPSIS
 
     eval ". ./libtest.sh" || exit 255
 
-    tests	2
     func_ok	test_it      'function test_it()'
     BAIL_OUT 'function test_it() undefined -- forgot to source?'
 
     test_it
     is_status 0           'successfull execution'
+    done_testing 2
 
 
 DESCRIPTION
@@ -41,6 +41,7 @@ FUNCTIONS
 
 tests( <number> )
   Plan your tests. This function set the number of planed tests.
+  It is better to use done_testing() instead, see below.
 
   Example:
     tests 2
@@ -50,9 +51,13 @@ tests( <number> )
 
 done_testing( [number_of_tests] )
   If you do not know how many test you will run, you can issue the plan
-  after running the test. 'number_of_tests' is the number of tests you
-  expected to run, equal to tests(). You can omit this, in this case the
-  number of run tests does not matter. They only have to pass.
+  after running the test.
+  You have to call this function at the very end of every test script.
+  It summarises all tests and prints results and information to STDOUT,
+  warnings and errors to STDERR. 'number_of_tests' is the number of
+  tests you expected to run, equal to tests(). You can omit this,
+  in this case the number of run tests does not matter. They only
+  have to pass.
 
   Example:
     . libtest.sh || exit 255
@@ -172,8 +177,8 @@ TODO( [description] )
     ok "$prod -eq 1" 'productive test'
 
   Setting the environment LIBTEST_NO_TODO to a non-empty value disables
-  the functionality of TODO. This can be used to proof that any TODO's
-  are open before publishing a version.
+  the functionality of TODO. This can be used to proof that no TODO's
+  are open any more before publishing a version.
 
 
 BAIL_OUT( <reason> )
@@ -187,13 +192,13 @@ BAIL_OUT( <reason> )
 
 
 SKIP( <condition>, [description] )
-  When <condition> is true set all following tests are skipped.
-  Use SKIP_IF without any parameter to return to productive tests.
+  When <condition> is true set all following tests to be skipped.
+  Use SKIP without any parameter to return to productive tests.
 
   Example:
-    SKIP_IF "! -r /var/log/messages"  Test only if file is readable
+    SKIP "! -r /var/log/messages"  Test only if file is readable
     like_file /var/log/messages "important message" 'message OK'
-    SKIP_IF
+    SKIP
     ok "$prod -eq 1" 'productive test'
 
 
@@ -203,7 +208,7 @@ tests_failed()
 
   Example:
     # save file when tests failed
-    if $(tests_failed) && rm -f $tmpfile
+    [ $(tests_failed) ] || rm -f $tmpfile
 
 
 libtest_mktemp()
@@ -218,16 +223,11 @@ libtest_mktemp()
     complex_command >| $LIBTEST_TMP/out 2>| $LIBTEST_TMP/err
 
 
-BUGS
-    Do not use traps on EXIT!
-    libtest.sh use this trap to calculate test results. So, do not use
-    'trap' in your test scripts.
-
 AUTHOR
     Written by Olaf Ohlenmacher
 
 COPYRIGHT
-    Copyright 2011,2012 Olaf Ohlenmacher.  License GPLv3+: GNU GPL
+    Copyright 2011,2012,2013 Olaf Ohlenmacher.  License GPLv3+: GNU GPL
     version 3 or later <http://gnu.org/licenses/gpl.html>. This is free
     software: you are free to change and redistribute it. There is NO
     WARRANTY, to the extent permitted by law.

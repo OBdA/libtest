@@ -1,9 +1,15 @@
-libtest version 1.4:
+libtest version 2.0:
+      removed trap for EXIT and make done_testing() mandatory
       fixed issue#6 failure in func_ok()
+      fixed bad typo causing failure of the zsh
+      fix tests for changing done_testing()
+      fix when no test run before done_testing()
       added method skip for conditionally skipping some tests
-      removed shebang from all test scripts
-      use right $SHELL for data test scripts and ensure 'errexit'
-      ensure removing all temporary files
+      use right $SHELL for data test scripts
+      ensure removing temporary files in tests
+      add shell option -e to every data test script
+      add test for testing zsh-exit-code
+      many zsh fixes
 
 libtest version 1.3:
       fixed trap handling to get zsh compatibility
@@ -32,4 +38,5 @@ libtest version 1.1:
 
 libtest version 1.0:
       Initial version
+
 
