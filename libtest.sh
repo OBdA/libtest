@@ -622,8 +622,8 @@ diag ()
 #..    ok "$prod -eq 1" 'productive test'
 #..
 #..  Setting the environment LIBTEST_NO_TODO to a non-empty value disables
-#..  the functionality of TODO. This can be used to proof that any TODO's
-#..  are open before publishing a version.
+#..  the functionality of TODO. This can be used to proof that no TODO's
+#..  are open any more before publishing a version.
 #..
 #..
 TODO ()
@@ -665,13 +665,13 @@ BAIL_OUT ()
 }
 
 #..SKIP( <condition>, [description] )
-#..  When <condition> is true set all following tests are skipped.
-#..  Use SKIP_IF without any parameter to return to productive tests.
+#..  When <condition> is true set all following tests to be skipped.
+#..  Use SKIP without any parameter to return to productive tests.
 #..
 #..  Example:
-#..    SKIP_IF "! -r /var/log/messages"  Test only if file is readable
+#..    SKIP "! -r /var/log/messages"  Test only if file is readable
 #..    like_file /var/log/messages "important message" 'message OK'
-#..    SKIP_IF
+#..    SKIP
 #..    ok "$prod -eq 1" 'productive test'
 #..
 #..
@@ -713,7 +713,7 @@ __skipped()
 #..
 #..  Example:
 #..    # save file when tests failed
-#..    if $(tests_failed) && rm -f $tmpfile
+#..    [ $(tests_failed) ] || rm -f $tmpfile
 #..
 #..
 tests_failed()
